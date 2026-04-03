@@ -4,7 +4,11 @@ import { postLogin } from '@/services/rhilex/yonghuguanli';
 import { DEFAULT_TITLE } from '@/utils/constant';
 import type { ProFormInstance, Settings as LayoutSettings } from '@ant-design/pro-components';
 import { DefaultFooter, LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components';
-import { Helmet, history, SelectLang, useIntl, useModel } from '@umijs/max';
+import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { SelectLang } from '@/locales';
+import { useAppStore } from '@/store';
 
 import { getMenuMain } from '@/services/rhilex/caozuocaidan';
 import { getOsGetSecurityLicense } from '@/services/rhilex/xitongshuju';
@@ -12,7 +16,7 @@ import { VersionType } from '@/utils/enum';
 import { encryptText } from '@/utils/utils';
 import { useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
-import defaultSettings from '../../../../config/defaultSettings';
+import defaultSettings from '@/config/defaultSettings';
 import UserAgreementModal from './AgreementModal';
 
 export type CurrentUser = {
@@ -22,21 +26,25 @@ export type CurrentUser = {
 };
 
 const Login: React.FC = () => {
-  const { setInitialState } = useModel('@@initialState');
+  const navigate = useNavigate();
+  const { setInitialState } = useAppStore();
   const formRef = useRef<ProFormInstance>();
   const { formatMessage } = useIntl();
   const [open, setOpen] = useState<boolean>(false);
 
   const handleOnFinish = async ({ username, password }: CurrentUser) => {
     try {
-      const { data: license } = await getOsGetSecurityLicense();
+      const license = await getOsGetSecurityLicense();
       const params = {
         username,
         password: encryptText(license.public_key, password),
       };
 
-      const { data } = await postLogin(params);
-      const { data: menuData } = await getMenuMain();
+      const data = await postLogin(params);
+      localStorage.setItem('accessToken', data.token);
+      localStorage.setItem('play-log-state', 'true');
+
+      const menuData = await getMenuMain();
 
       flushSync(() =>
         setInitialState({
@@ -48,10 +56,8 @@ const Login: React.FC = () => {
         }),
       );
 
-      history.push('/');
+      navigate('/');
       message.success(formatMessage({ id: 'message.success.login' }));
-      localStorage.setItem('accessToken', data.token);
-      localStorage.setItem('play-log-state', 'true');
     } catch (error) {
       console.error(error);
     }

@@ -16,7 +16,8 @@ import {
 } from '@/services/rhilex/snmpdianweiguanli';
 import { defaultPagination } from '@/utils/constant';
 import type { ActionType, EditableFormInstance, ProColumns } from '@ant-design/pro-components';
-import { useIntl, useParams } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 
 const defaultConfig = {
@@ -79,7 +80,7 @@ const SnmpOidsSheet = ({ isDetail = false }: BaseDataSheetProps) => {
         current = defaultPagination.defaultCurrent,
         pageSize = defaultPagination.defaultPageSize,
       }) => {
-        const { data } = await getSnmpOidsSheetList({
+        const data = await getSnmpOidsSheetList({
           device_uuid: deviceId || '',
           current,
           size: pageSize,

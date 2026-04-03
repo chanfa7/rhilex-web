@@ -20,7 +20,10 @@ import {
 } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProCard, ProList, ProTable } from '@ant-design/pro-components';
-import { history, useIntl, useModel, useRequest } from '@umijs/max';
+import { useNavigate } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { useCommonStore } from '@/store';
+import { useRequest } from 'ahooks';
 import { Button, Dropdown, Popconfirm, Space } from 'antd';
 import type { ItemType } from 'antd/es/menu/interface';
 import type { MenuInfo } from 'rc-menu/lib/interface';
@@ -42,9 +45,10 @@ export type CecollasItem = {
 };
 
 const Cecollas = () => {
+  const navigate = useNavigate();
   const actionRef = useRef<ActionType>();
   const { formatMessage } = useIntl();
-  const { isFreeTrial, total, changeTotal } = useModel('useCommon');
+  const { isFreeTrial, total, changeTotal } = useCommonStore();
   const [open, setOpen] = useState<boolean>(false);
   const [updateConfig, changeUpdateConfig] = useState<DetailConfig>(defaultConfig);
   const [activeCecollas, setActiveCecollas] = useState<string>('');
@@ -66,7 +70,7 @@ const Cecollas = () => {
     (params: API.getDevicesDeviceErrMsgParams) => getCecollasCecollaErrMsg(params),
     {
       manual: true,
-      onSuccess: (res) =>
+      onSuccess: (res: string) =>
         modal.error({
           title: formatMessage({ id: 'common.title.exception' }),
           content: <div className="break-words">{res}</div>,
@@ -113,7 +117,7 @@ const Cecollas = () => {
         setActiveCecollas(uuid);
         break;
       case 'action':
-        history.push(`/cecollas/action/${uuid}`);
+        navigate(`/cecollas/action/${uuid}`);
         break;
       case 'error':
         getErrorMsg({ uuid });
@@ -135,7 +139,7 @@ const Cecollas = () => {
 
         return (
           <Space>
-            <a key="detail" onClick={() => history.push(`/cecollas/detail/${uuid}`)}>
+            <a key="detail" onClick={() => navigate(`/cecollas/detail/${uuid}`)}>
               {formatMessage({ id: 'button.detail' })}
             </a>
             <a key="edit" onClick={() => uuid && changeUpdateConfig({ open: true, uuid })}>
@@ -205,7 +209,7 @@ const Cecollas = () => {
               columns={columns}
               search={false}
               request={async ({ current, pageSize }) => {
-                const { data } = await getCecollasListByGroup({
+                const data = await getCecollasListByGroup({
                   current,
                   size: pageSize,
                   gid: DEFAULT_GROUP_KEY_CECOLLAS,

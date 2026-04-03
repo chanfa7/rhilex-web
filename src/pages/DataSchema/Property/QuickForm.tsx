@@ -6,7 +6,9 @@ import {
 } from '@/services/rhilex/shujumoxing';
 import type { ModalFormProps } from '@ant-design/pro-components';
 import { ModalForm, ProFormSelect } from '@ant-design/pro-components';
-import { useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
+import { useRequest } from 'ahooks';
 import { Table } from 'antd';
 import { useState } from 'react';
 
@@ -87,8 +89,8 @@ const QuickPropertyForm = ({ reload, ...props }: QuickPropertyFormProps) => {
         width="lg"
         allowClear={false}
         request={async () => {
-          const { data } = await getSchemaGetTemplates();
-          return data || [];
+          const data = await getSchemaGetTemplates();
+          return (data || []) as any;
         }}
         rules={[
           {

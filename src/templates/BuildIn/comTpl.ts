@@ -2,9 +2,9 @@
  * 通信模组相关代码模板&示例
  */
 
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 
-const {formatMessage} = getIntl(getLocale());
+const {formatMessage} = getIntl();
 
 export const getRfcomAction = (uuid?: string) => `Actions = {
   function(args)

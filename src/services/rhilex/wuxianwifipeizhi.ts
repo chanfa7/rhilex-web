@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 获取WIFI配置 GET /api/v1/settings/wifi */
 export async function getSettingsWifi(

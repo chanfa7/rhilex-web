@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 插件详情 GET /api/v1/plugware/detail */
 export async function getPlugwareDetail(

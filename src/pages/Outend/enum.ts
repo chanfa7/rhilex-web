@@ -1,9 +1,9 @@
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl } from '@/locales';
 
 /**
  * 北向资源类型
  */
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 export enum OutendType {
   MQTT = 'MQTT',

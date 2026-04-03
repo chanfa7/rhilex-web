@@ -14,7 +14,9 @@ import {
   ProFormSwitch,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
+import { useRequest } from 'ahooks';
 import { useSize } from 'ahooks';
 import { Empty, Space, Tooltip } from 'antd';
 import { Rule } from 'antd/es/form';
@@ -203,7 +205,7 @@ const NetworkConfig = () => {
             actionRender={(props, action, defaultActionDom) => {
               return [
                 <Tooltip key="add" title={formatMessage({ id: 'system.tooltip.new' })}>
-                  <PlusCircleOutlined onClick={() => action.add()} className="ml-[10px]" />
+                  <PlusCircleOutlined onClick={() => action?.add()} className="ml-[10px]" />
                 </Tooltip>,
                 ...defaultActionDom,
               ];

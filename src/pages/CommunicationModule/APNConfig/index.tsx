@@ -2,7 +2,9 @@ import { message } from '@/components/PopupHack';
 import { getMn4GApn, postMn4GApn } from '@/services/rhilex/yidongwangluo4Gshezhi';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormSelect, ProFormText } from '@ant-design/pro-components';
-import { useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
+import { useRequest } from 'ahooks';
 import { Space } from 'antd';
 import { useEffect, useRef } from 'react';
 

@@ -1,6 +1,6 @@
 import type { LogRef } from '@/components/ProLog';
 import ProLog from '@/components/ProLog';
-import { useIntl } from '@umijs/max';
+import { useIntl } from 'react-intl';
 import type { ModalProps } from 'antd';
 import { Button, Modal } from 'antd';
 import { useRef } from 'react';

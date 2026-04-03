@@ -1,7 +1,8 @@
 import JsonCode from '@/components/JsonCode';
 import { getSettingsNetStatus } from '@/services/rhilex/wangluopeizhi';
 import { ProCard } from '@ant-design/pro-components';
-import { useIntl, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 
 const NetworkStatus = () => {
   const { formatMessage } = useIntl();

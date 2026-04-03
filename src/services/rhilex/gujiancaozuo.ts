@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 重启系统 POST /api/v1/firmware/reboot */
 export async function postFirmwareReboot(options?: { [key: string]: any }) {
@@ -69,7 +69,6 @@ export async function postFirmwareUpload(body: {}, file?: File, options?: { [key
   return request<{ code: number; msg: string; data: string[] }>('/api/v1/firmware/upload', {
     method: 'POST',
     data: formData,
-    requestType: 'form',
     ...(options || {}),
   });
 }

@@ -21,16 +21,20 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { history, useIntl, useParams, useRequest } from '@umijs/max';
-import { AutoComplete, Button, message, Popconfirm } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
+import { AutoComplete, Button, Popconfirm } from 'antd';
+import { message } from '@/components/PopupHack';
 import { nanoid } from 'nanoid';
 import { useEffect, useRef } from 'react';
 
 const UpdateRule = () => {
+  const navigate = useNavigate();
   const { formatMessage } = useIntl();
   const formRef = useRef<ProFormInstance>();
   const { uuid } = useParams();
-  const buildInEventType = [];
+  const buildInEventType: string[] = [];
 
   for (let i = 1; i <= 30; i++) {
     buildInEventType.push(`alarm.eventType.opt${i}`);
@@ -53,7 +57,7 @@ const UpdateRule = () => {
 
   return (
     <PageContainer
-      onBack={() => history.push(ALARM_LIST)}
+      onBack={() => navigate(ALARM_LIST)}
       title={formatMessage({
         id: uuid ? 'alarm.rule.title.update' : 'alarm.rule.title.new',
       })}
@@ -97,7 +101,7 @@ const UpdateRule = () => {
                 await postAlarmRuleCreate(params as any);
                 message.success(formatMessage({ id: 'message.success.new' }));
               }
-              history.push(ALARM_LIST);
+              navigate(ALARM_LIST);
               return true;
             } catch (error) {
               return false;

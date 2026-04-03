@@ -1,5 +1,5 @@
 import ProTag, { StatusType } from '@/components/ProTag';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import { OutendType, outendTypeOption } from '../enum';
 import { GREPTIME_DATABASE } from './greptimeDB';
 import { RHILEX_GRPC_TARGET } from './grpc';
@@ -11,7 +11,7 @@ import { TDENGINE } from './tdengine';
 import { GENERIC_UART_TARGET } from './uart';
 import { UDP_TARGET } from './udp';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 export const baseColumns = [
   {

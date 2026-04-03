@@ -6,7 +6,9 @@ import { defaultPagination } from '@/utils/constant';
 import { CalendarOutlined, ClearOutlined } from '@ant-design/icons';
 import type { ActionType } from '@ant-design/pro-components';
 import { ProList } from '@ant-design/pro-components';
-import { useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
+import { useRequest } from 'ahooks';
 import { Button, Popconfirm, Space } from 'antd';
 import dayjs from 'dayjs';
 import { useRef } from 'react';
@@ -88,7 +90,7 @@ const Notification = () => {
         rowKey="uuid"
         actionRef={actionRef}
         request={async ({ current = defaultPagination.defaultCurrent, pageSize = 8 }) => {
-          const { data } = await getNotifyPageList({ current, size: pageSize });
+          const data = await getNotifyPageList({ current, size: pageSize });
 
           return Promise.resolve({
             data: data?.records || [],

@@ -1,4 +1,4 @@
-import { history } from '@umijs/max';
+import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
 
 import {
@@ -23,7 +23,9 @@ import {
   putInendsRestart,
 } from '@/services/rhilex/shuruziyuanguanli';
 import { MAX_TOTAL } from '@/utils/constant';
-import { useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
+import { useRequest } from 'ahooks';
 import type { MenuInfo } from 'rc-menu/lib/interface';
 import { baseColumns } from './Columns';
 import { InendType } from './enum';
@@ -39,6 +41,7 @@ export type InendItem = {
 
 const Inend = () => {
   const actionRef = useRef<ActionType>();
+  const navigate = useNavigate();
   const { isFreeTrial, total, changeTotal } = useModel('useCommon');
 
   const { formatMessage } = useIntl();
@@ -62,7 +65,7 @@ const Inend = () => {
     (params: API.getDevicesDeviceErrMsgParams) => getInendsInendErrMsg(params),
     {
       manual: true,
-      onSuccess: (res) =>
+      onSuccess: (res: string) =>
         modal.error({
           title: formatMessage({ id: 'common.title.exception' }),
           content: <div className="break-words">{res}</div>,
@@ -128,10 +131,10 @@ const Inend = () => {
             ruleType: type,
           }),
         );
-        history.push(`/inend/${uuid}/rule`);
+        navigate(`/inend/${uuid}/rule`);
         break;
       case 'sub-device':
-        history.push(`/inend/${uuid}/sub-device`);
+        navigate(`/inend/${uuid}/sub-device`);
         break;
       case 'error':
         getErrorMsg({ uuid });
@@ -148,10 +151,10 @@ const Inend = () => {
       key: 'option',
       valueType: 'option',
       render: (_, { uuid, type, state }) => [
-        <a key="detail" onClick={() => history.push(`/inend/detail/${uuid}`)}>
+        <a key="detail" onClick={() => navigate(`/inend/detail/${uuid}`)}>
           {formatMessage({ id: 'button.detail' })}
         </a>,
-        <a key="edit" onClick={() => history.push(`/inend/edit/${uuid}`)}>
+        <a key="edit" onClick={() => navigate(`/inend/edit/${uuid}`)}>
           {formatMessage({ id: 'button.edit' })}
         </a>,
         <Popconfirm
@@ -203,7 +206,7 @@ const Inend = () => {
               type="primary"
               icon={<PlusOutlined />}
               disabled={isFreeTrial && total >= MAX_TOTAL}
-              onClick={() => history.push('/inend/new')}
+              onClick={() => navigate('/inend/new')}
             >
               {formatMessage({ id: 'button.new' })}
             </Button>,

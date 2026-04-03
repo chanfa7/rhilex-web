@@ -1,4 +1,4 @@
-import { useIntl } from '@umijs/max';
+import { useIntl } from 'react-intl';
 
 const TelemetryProtocol = () => {
   const { formatMessage, locale } = useIntl();

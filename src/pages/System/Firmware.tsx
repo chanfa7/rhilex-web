@@ -19,8 +19,10 @@ import {
   UploadOutlined,
 } from '@ant-design/icons';
 import { ProCard } from '@ant-design/pro-components';
-import { getIntl, getLocale, useIntl, useModel, useRequest } from '@umijs/max';
-import { useSize } from 'ahooks';
+import { getIntl, getLocale } from '@/locales';
+import { useIntl } from 'react-intl';
+import { useSystemStore } from '@/store';
+import { useRequest, useSize } from 'ahooks';
 import type { ProgressProps } from 'antd';
 import { Button, Modal, Progress, Space, Tag, Upload } from 'antd';
 import type { RcFile } from 'antd/es/upload';
@@ -34,7 +36,7 @@ type ConfirmCofig = {
   handleOnEnd?: () => void;
 };
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 const defaultUpgradeConfig = {
   content: formatMessage({ id: 'system.modal.content.upgrade' }),
@@ -62,7 +64,7 @@ export const twoColors: ProgressProps['strokeColor'] = {
 const FirmwareConfig = () => {
   const ref = useRef(null);
   const size = useSize(ref);
-  const { isCommon } = useModel('useSystem');
+  const { isCommon } = useSystemStore();
 
   const { formatMessage } = useIntl();
   const [open, setOpen] = useState<boolean>(false);
@@ -192,7 +194,7 @@ const FirmwareConfig = () => {
             columns={columns as EnhancedProDescriptionsItemProps[]}
             labelWidth={getLocale() === 'en-US' ? 140 : 110}
             request={async () => {
-              const { data } = await getFirmwareVendorKey();
+              const data = await getFirmwareVendorKey();
               return Promise.resolve({
                 success: true,
                 data,
@@ -296,7 +298,7 @@ const FirmwareConfig = () => {
             title={formatMessage({ id: 'system.title.firmware.log' })}
             colSpan={isSmallView ? '100%' : '50%'}
           >
-            <div className="w-full break-words whitespace-pre-wrap">{logData}</div>
+            <div className="w-full break-words whitespace-pre-wrap">{logData as any}</div>
           </ProCard>
         )}
       </ProCard>

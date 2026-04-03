@@ -1,9 +1,9 @@
 import ProTag, { StatusType } from '@/components/ProTag';
 import type { ProFormColumnsType } from '@ant-design/pro-components';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import { CecollasType, cecollasTypeOptions, groupData, Mode, modeOptions } from './enum';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 export type CecollasFormItem = {
   name: string;

@@ -2,8 +2,8 @@
  * 数据中心相关代码模板&示例
  */
 
-import { getIntl, getLocale } from '@umijs/max';
-const {formatMessage} = getIntl(getLocale());
+import { getIntl, getLocale } from '@/locales';
+const {formatMessage} = getIntl();
 
 const apply = `local err = rds:Save(uuid, schema)
 if err ~= nil then

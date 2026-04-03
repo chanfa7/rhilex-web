@@ -7,7 +7,10 @@ import {
 } from '@/services/rhilex/shebeiguanli';
 import { convertConfig, filterUndefined, formatHeaders, generateRandomId } from '@/utils/utils';
 import type { ProFormColumnsType, ProFormInstance } from '@ant-design/pro-components';
-import { history, useIntl, useModel, useParams, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRequest } from 'ahooks';
+import { useCommonStore } from '@/store';
 import { useEffect, useRef, useState } from 'react';
 import { columns } from '../Columns';
 import {
@@ -41,10 +44,11 @@ const convertBooleanOrString = (config: Record<string, any>) => {
 };
 
 const UpdateForm = () => {
+  const navigate = useNavigate();
   const formRef = useRef<ProFormInstance>();
   const { deviceId, groupId } = useParams();
   const { formatMessage } = useIntl();
-  const { isFreeTrial } = useModel('useCommon');
+  const { isFreeTrial } = useCommonStore();
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -72,22 +76,16 @@ const UpdateForm = () => {
         await putDevicesUpdate({ ...params, uuid: deviceId });
         message.success(formatMessage({ id: 'message.success.update' }));
       } else {
-        const { msg } = await postDevicesCreate(params);
-
-        if (msg === 'Success') {
-          message.success(formatMessage({ id: 'message.success.new' }));
-        } else {
-          const info = formatMessage({ id: 'device.message.error.new' }, { msg: msg });
-          message.warning(info);
-        }
+        await postDevicesCreate(params);
+        message.success(formatMessage({ id: 'message.success.new' }));
       }
 
-      history.push(DEVICE_LIST);
+      navigate(DEVICE_LIST);
       setLoading(false);
       return true;
     } catch (error) {
       setLoading(false);
-      history.push(DEVICE_LIST);
+      navigate(DEVICE_LIST);
       return false;
     }
   };

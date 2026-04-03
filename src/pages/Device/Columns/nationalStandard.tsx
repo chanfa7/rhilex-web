@@ -3,12 +3,12 @@ import ProTag, { StatusType } from '@/components/ProTag';
 import { getAlarmRuleList } from '@/services/rhilex/yujingzhongxin';
 import { getCecollasListByGroup } from '@/services/rhilex/yunbianxietong';
 import { DEFAULT_GROUP_KEY_CECOLLAS } from '@/utils/constant';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import { modeColumns } from '.';
 import type { DeviceItem } from '..';
 import { DeviceMode } from '../enum';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 /**
  * 国标协议配置 DLT6452007_MASTER | CJT1882004_MASTER | SZY2062016_MASTER
@@ -71,7 +71,7 @@ export const NATIONAL_STANDARD = [
             hideInForm: config?.cecollaConfig?.enable === 'false',
             hideInDescriptions: !config?.cecollaConfig?.enable,
             request: async () => {
-              const { data } = await getCecollasListByGroup({
+              const data = await getCecollasListByGroup({
                 current: 1,
                 size: 999,
                 gid: DEFAULT_GROUP_KEY_CECOLLAS,
@@ -115,7 +115,7 @@ export const NATIONAL_STANDARD = [
             hideInForm: config?.alarmConfig?.enable === 'false',
             hideInDescriptions: !config?.alarmConfig?.enable,
             request: async () => {
-              const { data } = await getAlarmRuleList({
+              const data = await getAlarmRuleList({
                 current: 1,
                 size: 999,
               });

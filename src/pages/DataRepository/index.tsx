@@ -17,7 +17,9 @@ import { IconFont, toPascalCase } from '@/utils/utils';
 import { DeleteOutlined, DownloadOutlined, EyeOutlined, TableOutlined } from '@ant-design/icons';
 import type { ActionType } from '@ant-design/pro-components';
 import { ProCard, ProTable } from '@ant-design/pro-components';
-import { useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
+import { useRequest } from 'ahooks';
 import type { TreeDataNode } from 'antd';
 import { Button, Empty, Modal, Space, Tooltip, Tree } from 'antd';
 import dayjs from 'dayjs';
@@ -64,8 +66,9 @@ const DataRepository = () => {
   const [selectedItemTree, setItemTree] = useState<Record<string, any>[]>([]);
 
   // 获取密钥
-  const { data: secret } = useRequest(() => getDatacenterSecret(), {
-    formatResult: (res) => res.data.secret,
+  const { data: secret } = useRequest(async () => {
+    const data = await getDatacenterSecret();
+    return data.secret;
   });
 
   // 获取数据表列表
@@ -121,7 +124,7 @@ const DataRepository = () => {
 
   const handleOnLoadData = async ({ key }: any) => {
     if (!secret) return [];
-    const { data } = await getDatacenterSchemaDdlDefine({ uuid: key, secret });
+    const data = await getDatacenterSchemaDdlDefine({ uuid: key, secret });
     setItemTree(data);
     return new Promise<void>((resolve) => {
       setTimeout(() => {
@@ -284,7 +287,7 @@ const DataRepository = () => {
                 uuid,
                 secret,
               }) => {
-                const { data } = await getDatacenterQueryDataList({
+                const data = await getDatacenterQueryDataList({
                   current,
                   size: pageSize,
                   order: 'DESC',

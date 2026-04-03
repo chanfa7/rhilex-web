@@ -10,13 +10,16 @@ import {
 import { INEND_LIST } from '@/utils/constant';
 import { generateRandomId } from '@/utils/utils';
 import type { ProFormColumnsType, ProFormInstance } from '@ant-design/pro-components';
-import { history, useIntl, useParams, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRequest } from 'ahooks';
 import { useEffect, useRef, useState } from 'react';
 import { columns } from '../Columns';
 import { InendType } from '../enum';
 import { defaultConfig } from './initialValues';
 
 const UpdateForm = () => {
+  const navigate = useNavigate();
   const formRef = useRef<ProFormInstance>();
   const { uuid } = useParams();
   const { formatMessage } = useIntl();
@@ -53,11 +56,11 @@ const UpdateForm = () => {
         }
       }
       setLoading(false);
-      history.push(INEND_LIST);
+      navigate(INEND_LIST);
       return true;
     } catch (error) {
       setLoading(false);
-      history.push(INEND_LIST);
+      navigate(INEND_LIST);
       return false;
     }
   };

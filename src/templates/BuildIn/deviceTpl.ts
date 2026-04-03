@@ -2,8 +2,8 @@
  * device 函数相关代码模板&示例
  */
 
-import { getIntl, getLocale } from '@umijs/max';
-const {formatMessage} = getIntl(getLocale());
+import { getIntl, getLocale } from '@/locales';
+const {formatMessage} = getIntl();
 
 const deviceList = [
   { target: 'Write', detail: formatMessage({ id: 'component.tpl.device.write' }) },

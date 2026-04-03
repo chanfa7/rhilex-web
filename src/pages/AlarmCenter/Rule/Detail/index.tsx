@@ -5,13 +5,17 @@ import { getOutendsDetail } from '@/services/rhilex/shuchuziyuanguanli';
 import { getAlarmRuleDetail } from '@/services/rhilex/yujingzhongxin';
 import { ALARM_LIST } from '@/utils/constant';
 import { ProCard, ProDescriptions } from '@ant-design/pro-components';
-import { getLocale, history, Link, useIntl, useParams, useRequest } from '@umijs/max';
+import { getLocale } from '@/locales';
+import { useNavigate, Link, useParams } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 import { Divider, Space, Tag } from 'antd';
 import { nanoid } from 'nanoid';
 import { useEffect } from 'react';
 import type { ExprDefine } from '..';
 
 const RuleDetail = () => {
+  const navigate = useNavigate();
   const { formatMessage } = useIntl();
   const { uuid } = useParams();
 
@@ -66,7 +70,7 @@ const RuleDetail = () => {
 
   return (
     <PageContainer
-      onBack={() => history.push(ALARM_LIST)}
+      onBack={() => navigate(ALARM_LIST)}
       title={formatMessage({ id: 'alarm.rule.title.detail' })}
     >
       <ProCard>

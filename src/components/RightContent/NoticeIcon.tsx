@@ -1,6 +1,7 @@
 import { BellOutlined } from '@ant-design/icons';
 import { ProList } from '@ant-design/pro-components';
-import { history, useIntl, useModel } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNotifyStore } from '@/store';
 import { Badge, Popover, Tooltip } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
@@ -8,17 +9,18 @@ import ProTag, { StatusType } from '../ProTag';
 
 const NoticeIcon = () => {
   const { formatMessage } = useIntl();
-  const { data, run } = useModel('useNotify');
+  const notifyData = useNotifyStore((s) => s.notifyData);
+  const notifyRun = useNotifyStore((s) => s.notifyRun);
   const accessToken = localStorage.getItem('accessToken');
 
   const content = (
     <ProList
       rowKey="uuid"
       pagination={false}
-      dataSource={data?.records || []}
+      dataSource={notifyData?.records || []}
       footer={
-        data?.total && data?.total > 0 ? (
-          <div className="cursor-pointer" onClick={() => history.push('/notification')}>
+        notifyData?.total && notifyData?.total > 0 ? (
+          <div className="cursor-pointer" onClick={() => { window.location.href = '/notification'; }}>
             <a>{formatMessage({ id: 'component.button.more' })}</a>
           </div>
         ) : null
@@ -33,12 +35,12 @@ const NoticeIcon = () => {
           ),
         },
         description: {
-          render: (_, { ts }) => {
-            return dayjs(ts).format('YYYY-MM-DD HH:mm:ss');
+          render: (_: any, record: any) => {
+            return dayjs(record.ts).format('YYYY-MM-DD HH:mm:ss');
           },
         },
         actions: {
-          render: (_, { type }) => <ProTag type={StatusType.NOTICE}>{type || 'DEFAULT'}</ProTag>,
+          render: (_: any, record: any) => <ProTag type={StatusType.NOTICE}>{record.type || 'DEFAULT'}</ProTag>,
         },
       }}
       className="notification-list"
@@ -47,7 +49,7 @@ const NoticeIcon = () => {
 
   useEffect(() => {
     if (accessToken) {
-      run();
+      notifyRun();
     }
   }, [accessToken]);
 
@@ -60,7 +62,7 @@ const NoticeIcon = () => {
       rootClassName="notification-popver"
     >
       <span className="inline cursor-pointer transition-all duration-300 px-[8px]">
-        <Badge count={data?.total} rootClassName="notice-badge">
+        <Badge count={notifyData?.total} rootClassName="notice-badge">
           <BellOutlined
             style={{ color: '#fff', fontSize: 16, padding: 4, verticalAlign: 'middle' }}
           />

@@ -7,7 +7,7 @@ import {
   ProFormRadio,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useIntl } from '@umijs/max';
+import { useIntl } from 'react-intl';
 import { Rule } from 'antd/es/form';
 import { message } from '../PopupHack';
 
@@ -161,7 +161,8 @@ const UpdateRegister = ({ data, dataType, ...props }: UpdateRegisterProps) => {
       layout="horizontal"
       modalProps={{ destroyOnClose: true, maskClosable: false }}
       initialValues={{ value: dataType === ModbusDataType.BOOL ? '0' : '' }}
-      onFinish={async ({ value }) => {
+      onFinish={async (formData: Record<string, any>) => {
+        const { value } = formData;
         const params = {
           ...data,
           value: value.toString(),

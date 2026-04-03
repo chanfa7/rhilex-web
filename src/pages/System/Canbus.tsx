@@ -1,5 +1,6 @@
 import { ProCard } from '@ant-design/pro-components';
-import { useIntl, useModel } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
 import { Empty } from 'antd';
 
 const CanBus = () => {

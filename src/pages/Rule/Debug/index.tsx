@@ -4,7 +4,8 @@ import { postRulesTest } from '@/services/rhilex/guizeguanli';
 import { debugData } from '@/templates';
 import type { ModalFormProps, ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProForm, ProFormSelect } from '@ant-design/pro-components';
-import { useIntl, useParams } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
 import { Button } from 'antd';
 import { useRef } from 'react';
 
@@ -47,7 +48,8 @@ const Debug = ({ topic, ...props }: DebugProps) => {
           ];
         },
       }}
-      onFinish={async ({ testData }) => {
+      onFinish={async (formData: Record<string, any>) => {
+        const { testData } = formData;
         try {
           const testUuid = deviceId || inendId;
 

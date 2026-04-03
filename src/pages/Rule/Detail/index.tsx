@@ -4,7 +4,10 @@ import { getRulesDetail } from '@/services/rhilex/guizeguanli';
 import { getDevicesDetail } from '@/services/rhilex/shebeiguanli';
 import { getInendsDetail } from '@/services/rhilex/shuruziyuanguanli';
 import type { ProDescriptionsItemProps } from '@ant-design/pro-components';
-import { history, useIntl, useModel, useParams, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRequest } from 'ahooks';
+import { useCommonStore } from '@/store';
 import type { DrawerProps } from 'antd';
 import { Drawer } from 'antd';
 
@@ -13,9 +16,10 @@ type DetailProps = DrawerProps & {
 };
 
 const Detail = ({ uuid, ...props }: DetailProps) => {
+  const navigate = useNavigate();
   const { deviceId, inendId } = useParams();
   const { formatMessage, locale } = useIntl();
-  const { changeConfig } = useModel('useCommon');
+  const { changeConfig } = useCommonStore();
 
   // 获取资源详情
   const { data: inendDetail } = useRequest(() => getInendsDetail({ uuid: inendId || '' }), {
@@ -55,7 +59,7 @@ const Detail = ({ uuid, ...props }: DetailProps) => {
         return (
           <a
             onClick={() => {
-              history.push(`/${isSource ? 'inend' : 'device'}/list`);
+              navigate(`/${isSource ? 'inend' : 'device'}/list`);
               changeConfig({ open: true, uuid: isSource ? fromSource?.[0] : fromDevice?.[0] });
             }}
           >

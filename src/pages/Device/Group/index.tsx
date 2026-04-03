@@ -11,7 +11,8 @@ import { generateRandomId } from '@/utils/utils';
 import { DeleteOutlined, EditOutlined, FolderOpenOutlined } from '@ant-design/icons';
 import type { ActionType } from '@ant-design/pro-components';
 import { ModalForm, ProFormText, ProList } from '@ant-design/pro-components';
-import { useIntl, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 import { Form, Space, Tooltip } from 'antd';
 import { useEffect, useRef } from 'react';
 
@@ -136,8 +137,14 @@ const GroupList = ({
 
   useEffect(() => {
     if (!activeKey) return;
-    getDetail({ uuid: activeKey }).then((res) => changeTitle(res.name));
+    getDetail({ uuid: activeKey });
   }, [activeKey]);
+
+  useEffect(() => {
+    if (groupDetail?.name) {
+      changeTitle(groupDetail.name);
+    }
+  }, [groupDetail]);
 
   return (
     <>
@@ -147,7 +154,7 @@ const GroupList = ({
         headerTitle={false}
         toolBarRender={false}
         request={async () => {
-          const { data } = await getDevicesGroup();
+          const data = await getDevicesGroup();
 
           return Promise.resolve({
             data: data as GroupItem[],
@@ -178,14 +185,13 @@ const GroupList = ({
                   <Tooltip title={formatMessage({ id: 'device.tooltip.group.edit' })}>
                     <a
                       key="edit"
-                      onClick={() => {
-                        getDetail({ uuid }).then((res) => {
-                          form.setFieldValue('name', res.name);
-                          changeConfig({
-                            open: true,
-                            title: 'device.modal.title.group.edit',
-                            type: GroupModalType.EDIT,
-                          });
+                      onClick={async () => {
+                        const detailData = await getGroupDetail({ uuid });
+                        form.setFieldValue('name', detailData?.name);
+                        changeConfig({
+                          open: true,
+                          title: 'device.modal.title.group.edit',
+                          type: GroupModalType.EDIT,
                         });
                       }}
                     >

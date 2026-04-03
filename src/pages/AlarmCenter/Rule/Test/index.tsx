@@ -8,7 +8,8 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { useIntl, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 import { useEffect, useRef } from 'react';
 
 type TestRuleProps = ModalFormProps & {
@@ -52,15 +53,16 @@ const TestRule = ({ uuid, ...props }: TestRuleProps) => {
           submitText: formatMessage({ id: 'alarm.button.test' }),
         },
       }}
-      onFinish={async (values) => {
-        const { data } = await postAlarmRuleTestRule({
+      onFinish={async (values: Record<string, any>) => {
+        const result = await postAlarmRuleTestRule({
           expr: values.expr,
-          data: JSON.parse(values.data),
+          data: JSON.parse(values.data) as Record<string, any>,
         });
+        const data = result as any;
         if (data === 'SUCCESS') {
           message.success(data);
         } else {
-          message.error(data);
+          message.error(String(data));
         }
 
         return false;

@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 新建输出资源 新建资源 POST /api/v1/outends/create */
 export async function postOutendsCreate(

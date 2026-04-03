@@ -5,8 +5,11 @@ import {
 } from '@/services/rhilex/yidongwangluo4Gshezhi';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProCard, ProForm, ProFormSelect, ProFormText } from '@ant-design/pro-components';
-import { useIntl, useModel, useRequest } from '@umijs/max';
-import { Button, Empty, message, Progress, Tag } from 'antd';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
+import { useRequest } from 'ahooks';
+import { Button, Empty, Progress, Tag } from 'antd';
+import { message } from '@/components/PopupHack';
 import { useEffect, useRef } from 'react';
 
 const Network4G = () => {

@@ -15,7 +15,8 @@ import {
 } from '@/services/rhilex/bacnetRoutermoshi';
 import { defaultPagination } from '@/utils/constant';
 import type { ActionType, EditableFormInstance, ProColumns } from '@ant-design/pro-components';
-import { useIntl, useParams } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import { ObjectType, objectTypeOption } from './enum';
 
@@ -102,7 +103,7 @@ const BacnetRouterDataSheet = ({ isDetail = false }: BaseDataSheetProps) => {
         pageSize = defaultPagination.defaultPageSize,
       }) => {
         const deviceUuid = deviceId || '';
-        const { data } = await getBacnetRouterSheetList({
+        const data = await getBacnetRouterSheetList({
           device_uuid: deviceUuid,
           current,
           size: pageSize,

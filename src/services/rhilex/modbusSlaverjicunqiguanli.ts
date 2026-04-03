@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 查看寄存器表 GET /api/v1/modbus_slaver_sheet/list */
 export async function getModbusSlaverSheetList(

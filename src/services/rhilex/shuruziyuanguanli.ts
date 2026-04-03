@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 子设备列表 GET /api/v1/inends/clients */
 export async function getInendsClients(

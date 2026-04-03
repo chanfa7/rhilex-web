@@ -1,5 +1,5 @@
 import { ProTable } from '@ant-design/pro-components';
-import { useIntl } from '@umijs/max';
+import { useIntl } from 'react-intl';
 
 type PropertyProps = {
   data: Record<string, any>[];

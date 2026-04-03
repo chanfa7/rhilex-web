@@ -1,5 +1,5 @@
 import PageContainer from '@/components/ProPageContainer';
-import { useIntl } from '@umijs/max';
+import { useIntl } from 'react-intl';
 import { useState } from 'react';
 import AlarmLog from './Log';
 import AlarmRule from './Rule';

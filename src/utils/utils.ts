@@ -1,5 +1,5 @@
 import { createFromIconfontCN } from '@ant-design/icons';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import type { RcFile } from 'antd/es/upload';
 import { clsx, type ClassValue } from 'clsx';
 import JSEncrypt from 'jsencrypt';
@@ -147,11 +147,11 @@ export const filterUndefined = (obj: Record<string, any>) => {
 const getRuleName = (type: FormItemType) => {
   switch (type) {
     case FormItemType.PORT:
-      return getIntl(getLocale()).formatMessage({ id: 'form.rules.port' });
+      return getIntl().formatMessage({ id: 'form.rules.port' });
     case FormItemType.ADDRESS:
-      return getIntl(getLocale()).formatMessage({ id: 'form.rules.address' });
+      return getIntl().formatMessage({ id: 'form.rules.address' });
     case FormItemType.VENDORID:
-      return getIntl(getLocale()).formatMessage({ id: 'form.rules.vendorId' });
+      return getIntl().formatMessage({ id: 'form.rules.vendorId' });
     default:
       return '';
   }
@@ -165,7 +165,7 @@ export const validateFormItem = (value: string | number, type: FormItemType) => 
     case FormItemType.NAME:
       return typeof value === 'string' && validateName(value)
         ? Promise.resolve()
-        : Promise.reject(getIntl(getLocale()).formatMessage({ id: 'form.rules.name' }));
+        : Promise.reject(getIntl().formatMessage({ id: 'form.rules.name' }));
     case FormItemType.PORT:
     case FormItemType.ADDRESS:
     case FormItemType.VENDORID:
@@ -175,20 +175,20 @@ export const validateFormItem = (value: string | number, type: FormItemType) => 
     case FormItemType.IP:
       return typeof value === 'string' && validateIPv4(value)
         ? Promise.resolve()
-        : Promise.reject(getIntl(getLocale()).formatMessage({ id: 'form.rules.ip' }));
+        : Promise.reject(getIntl().formatMessage({ id: 'form.rules.ip' }));
     case FormItemType.NETMASK:
       return typeof value === 'string' && validateMask(value)
         ? Promise.resolve()
-        : Promise.reject(getIntl(getLocale()).formatMessage({ id: 'form.rules.netmask' }));
+        : Promise.reject(getIntl().formatMessage({ id: 'form.rules.netmask' }));
     case FormItemType.GATEWAY:
       return typeof value === 'string' && validateGateway(value)
         ? Promise.resolve()
-        : Promise.reject(getIntl(getLocale()).formatMessage({ id: 'form.rules.gateway' }));
+        : Promise.reject(getIntl().formatMessage({ id: 'form.rules.gateway' }));
     case FormItemType.TIMEOUT:
       return typeof value === 'number' && validateTimeout(value)
         ? Promise.resolve()
         : Promise.reject(getIntl().formatMessage({ id: 'form.rules.uartTimeout' }));
     default:
-      return Promise.reject(getIntl(getLocale()).formatMessage({ id: 'form.rules.default' }));
+      return Promise.reject(getIntl().formatMessage({ id: 'form.rules.default' }));
   }
 };

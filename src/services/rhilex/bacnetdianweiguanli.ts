@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** delAll DELETE /api/v1/bacnetip_data_sheet/delAll */
 export async function deleteBacnetipDataSheetDelAll(
@@ -100,7 +100,6 @@ export async function postBacnetipDataSheetSheetImport(
   return request<Record<string, any>>('/api/v1/bacnetip_data_sheet/sheetImport', {
     method: 'POST',
     data: formData,
-    requestType: 'form',
     ...(options || {}),
   });
 }

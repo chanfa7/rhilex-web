@@ -16,7 +16,8 @@ import {
 import { defaultPagination } from '@/utils/constant';
 import { inRange } from '@/utils/redash';
 import type { ActionType, EditableFormInstance, ProColumns } from '@ant-design/pro-components';
-import { useIntl, useParams } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
 import type { Rule } from 'antd/es/form';
 import { useRef } from 'react';
 
@@ -115,7 +116,7 @@ const CJTDataSheet = ({ isDetail = false }: BaseDataSheetProps) => {
         current = defaultPagination.defaultCurrent,
         pageSize = defaultPagination.defaultPageSize,
       }) => {
-        const { data } = await getCjt1882004MasterSheetList({
+        const data = await getCjt1882004MasterSheetList({
           device_uuid: deviceId || '',
           current,
           size: pageSize,

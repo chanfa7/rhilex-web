@@ -1,5 +1,5 @@
 import { CheckOutlined, CopyOutlined } from '@ant-design/icons';
-import { useIntl } from '@umijs/max';
+import { useIntl } from 'react-intl';
 import { Button } from 'antd';
 import type { BaseButtonProps } from 'antd/es/button/button';
 import { useId, useState } from 'react';

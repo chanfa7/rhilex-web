@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 获取配置菜单 GET /api/v1/menu/distConfig */
 export async function getMenuDistConfig(options?: { [key: string]: any }) {

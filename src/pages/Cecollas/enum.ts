@@ -1,7 +1,7 @@
 import { DEFAULT_GROUP_KEY_CECOLLAS } from '@/utils/constant';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 export enum CecollasType {
   TENCENT_IOTHUB_CEC = 'TENCENT_IOTHUB_CEC',

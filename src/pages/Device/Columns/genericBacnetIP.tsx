@@ -7,14 +7,14 @@ import { getCecollasListByGroup } from '@/services/rhilex/yunbianxietong';
 import { DEFAULT_GROUP_KEY_CECOLLAS } from '@/utils/constant';
 import { FormItemType } from '@/utils/enum';
 import { validateFormItem } from '@/utils/utils';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import { Space } from 'antd';
 import type { Rule } from 'antd/es/form';
 import type { LabeledValue } from 'antd/es/select';
 import type { DeviceItem } from '..';
 import { BacnetModeOption } from '../enum';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 export const GENERIC_BACNET_IP = [
   {
@@ -114,7 +114,7 @@ export const GENERIC_BACNET_IP = [
               ),
             },
             request: async () => {
-              const { data } = await getOsNetInterfaces();
+              const data = await getOsNetInterfaces();
 
               return data.map((item) => ({ label: item.name, value: item.addr }));
             },
@@ -151,7 +151,7 @@ export const GENERIC_BACNET_IP = [
             hideInForm: config?.cecollaConfig?.enable === 'false',
             hideInDescriptions: !config?.cecollaConfig?.enable,
             request: async () => {
-              const { data } = await getCecollasListByGroup({
+              const data = await getCecollasListByGroup({
                 current: 1,
                 size: 999,
                 gid: DEFAULT_GROUP_KEY_CECOLLAS,
@@ -195,7 +195,7 @@ export const GENERIC_BACNET_IP = [
             hideInForm: config?.alarmConfig?.enable === 'false',
             hideInDescriptions: !config?.alarmConfig?.enable,
             request: async () => {
-              const { data } = await getAlarmRuleList({
+              const data = await getAlarmRuleList({
                 current: 1,
                 size: 999,
               });

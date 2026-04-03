@@ -13,7 +13,9 @@ import {
 } from '@ant-design/icons';
 import { Line } from '@ant-design/plots';
 import { ProCard, StatisticCard } from '@ant-design/pro-components';
-import { useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
+import { useRequest } from 'ahooks';
 import { Button } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
@@ -34,7 +36,10 @@ const Resource = () => {
   const isEn = locale === 'en-US';
 
   // 获取系统详情
-  const { data: osDetail } = useRequest(() => getOsOsRelease());
+  const { data: osDetail } = useRequest(() => getOsOsRelease()) as {
+    data: Record<string, any> | undefined;
+    loading: boolean;
+  };
 
   const columns = osDetail
     ? Object.keys(osDetail)?.map((item) => ({ title: item, dataIndex: item, key: item }))
@@ -153,7 +158,7 @@ const Resource = () => {
         columns={systemConfigColumns}
         labelWidth={isEn ? 150 : 170}
         request={async () => {
-          const { data } = await getOsSysConfig();
+          const data = await getOsSysConfig();
 
           return Promise.resolve({
             data: data,

@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 多行删除 DELETE /api/v1/szy2062016_master_sheet/delIds */
 export async function deleteSzy2062016MasterSheetDelIds(
@@ -108,7 +108,6 @@ export async function postSzy2062016MasterSheetSheetImport(
   return request<Record<string, any>>('/api/v1/szy2062016_master_sheet/sheetImport', {
     method: 'POST',
     data: formData,
-    requestType: 'form',
     ...(options || {}),
   });
 }

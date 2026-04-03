@@ -2,9 +2,9 @@ import HeadersTitle from '@/components/HttpHeaders/Title';
 import ProSegmented from '@/components/ProSegmented';
 import ProTag, { StatusType } from '@/components/ProTag';
 import UnitValue from '@/components/UnitValue';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 export const HTTP = [
   {

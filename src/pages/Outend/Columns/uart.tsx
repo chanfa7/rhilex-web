@@ -3,10 +3,10 @@ import ProTag, { StatusType } from '@/components/ProTag';
 import UnitValue from '@/components/UnitValue';
 import { baudRateEnum, dataBitsEnum, parityEnum, stopBitsEnum } from '@/pages/Device/enum';
 import { getOsUarts } from '@/services/rhilex/xitongshuju';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import { dataModeOption } from '../enum';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 export const uartColumns = [
   {
@@ -60,7 +60,7 @@ export const uartColumns = [
     required: true,
     valueType: 'select',
     request: async () => {
-      const { data } = await getOsUarts();
+      const data = await getOsUarts();
 
       return data.map((item) => ({
         label: item,

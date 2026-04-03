@@ -1,4 +1,4 @@
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import {appStackQuickTpl } from './appStackTpl';
 import { dataToQuickTpl } from '../BuildIn/dataToTpl';
 import { cecollasQuickTpl } from './cecollasTpl';
@@ -6,7 +6,7 @@ import { cecollasQuickTpl } from './cecollasTpl';
 // 自定义快捷模板
 export const quickLuaTpl = [
   {
-    name: getIntl(getLocale()).formatMessage({ id: 'common.title.defaultGroup' }),
+    name: getIntl().formatMessage({ id: 'common.title.defaultGroup' }),
     uuid: 'default_quick_group',
   },
 ];

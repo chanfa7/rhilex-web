@@ -1,4 +1,4 @@
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import type { TableProps } from 'antd';
 import { Table } from 'antd';
 
@@ -18,10 +18,10 @@ const UploadSheetConfirm = ({ fileName, initialValue, ...props }: UploadSheetCon
   return (
     <>
       <div className="mb-[12px]">
-        {getIntl(getLocale()).formatMessage({ id: 'component.modal.title.upload' })}
+        {getIntl().formatMessage({ id: 'component.modal.title.upload' })}
       </div>
       <Table
-        rowKey="uuid"
+        rowKey={"uuid" as any}
         bordered
         pagination={false}
         size="small"
@@ -30,7 +30,7 @@ const UploadSheetConfirm = ({ fileName, initialValue, ...props }: UploadSheetCon
         {...props}
       />
       <div className="mt-[24px]">
-        {getIntl(getLocale()).formatMessage({ id: 'component.modal.content.upload' })}
+        {getIntl().formatMessage({ id: 'component.modal.content.upload' })}
         <span className="px-[5px] font-bold">{fileName}</span>
         {getLocale() === 'en-US' ? '?' : '？'}
       </div>

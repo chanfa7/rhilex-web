@@ -1,10 +1,10 @@
 import { TransceiverTypeOption } from '@/pages/CommunicationModule/enum';
 import { getTransceiverList } from '@/services/rhilex/tongxinmozu';
 import { IconFont } from '@/utils/utils';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import { Space } from 'antd';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 export const COMTC_EVENT_FORWARDER = [
   {
@@ -26,7 +26,7 @@ export const COMTC_EVENT_FORWARDER = [
       ),
     },
     request: async () => {
-      const { data } = await getTransceiverList();
+      const data = await getTransceiverList();
 
       return data.map((item) => ({ label: item.name, value: item.name, type: item.type }));
     },

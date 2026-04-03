@@ -1,10 +1,11 @@
-import { modal } from '@/components/PopupHack';
+import { message, modal } from '@/components/PopupHack';
 import { getCronRebootConfig, postCronRebootUpdate } from '@/services/rhilex/dingshizhongqi';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProCard, ProForm, ProFormSwitch } from '@ant-design/pro-components';
-import { useIntl, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 import { useSize } from 'ahooks';
-import { Alert, AutoComplete, message, Space } from 'antd';
+import { Alert, AutoComplete, Space } from 'antd';
 import { useEffect, useRef } from 'react';
 
 const ScheduledReboot = () => {
@@ -41,7 +42,7 @@ const ScheduledReboot = () => {
               title: formatMessage({ id: 'system.tab.reboot' }),
               content: alertMessage,
               onOk: async () => {
-                await postCronRebootUpdate(values);
+                await postCronRebootUpdate(values as any);
                 message.success(formatMessage({ id: 'system.message.success.setting' }));
               },
               cancelText: formatMessage({ id: 'button.cancel' }),

@@ -1,25 +1,22 @@
 import { postUsersLogout } from '@/services/rhilex/yonghuguanli';
 import { LOGIN_PATH } from '@/utils/constant';
-import { history, useModel, useRequest } from '@umijs/max';
+import { useRequest } from 'ahooks';
+import { useAppStore } from '@/store';
+import { useSystemStore } from '@/store';
 
 const useUser = () => {
-  const { setInitialState } = useModel('@@initialState');
-  const { cancel } = useModel('useSystem');
+  const setInitialState = useAppStore((s) => s.setInitialState);
+  const resetState = useAppStore((s) => s.resetState);
+  const systemCancel = useSystemStore((s) => s.systemCancel);
 
   // 退出登录
   const { run: logout } = useRequest(() => postUsersLogout(), {
     manual: true,
     onSuccess: () => {
-      setInitialState({
-        currentUser: undefined,
-        settings: {},
-        accessMenu: [],
-        endAuthorize: undefined,
-        type: undefined,
-      });
+      resetState();
       localStorage.clear();
-      history.push(LOGIN_PATH);
-      cancel();
+      window.location.href = LOGIN_PATH;
+      systemCancel();
     },
   });
 

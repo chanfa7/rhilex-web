@@ -15,15 +15,19 @@ import {
   ReloadOutlined,
 } from '@ant-design/icons';
 import { ProCard, ProList, StatisticCard } from '@ant-design/pro-components';
-import { history, useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { useRequest } from 'ahooks';
+import { useSystemStore, useCommonStore } from '@/store';
 import { Badge, Button, Col, Empty, Row, Space, Statistic } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const logRef = useRef<LogRef>(null);
 
-  const { dataSource, run } = useModel('useSystem');
-  const { changeConfig } = useModel('useCommon');
+  const { systemData: dataSource, systemRun: run } = useSystemStore();
+  const { changeConfig } = useCommonStore();
 
   const { formatMessage } = useIntl();
 
@@ -94,8 +98,9 @@ const Dashboard = () => {
   ];
 
   // 获取设备列表
-  const { data: allDeviceData } = useRequest(() => getDevicesList({ current: 1, size: 999 }), {
-    formatResult: (res) => res?.data?.records,
+  const { data: allDeviceData } = useRequest(async () => {
+    const data = await getDevicesList({ current: 1, size: 999 });
+    return data?.records;
   });
 
   const { run: reset } = useRequest(() => postOsResetInterMetric(), {
@@ -145,7 +150,7 @@ const Dashboard = () => {
                   <a
                     onClick={() => {
                       if (!uuid) return;
-                      history.push(DEVICE_LIST);
+                      navigate(DEVICE_LIST);
                       changeConfig({ open: true, uuid });
                     }}
                   >

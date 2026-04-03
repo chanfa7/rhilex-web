@@ -6,7 +6,9 @@ import { getInendsClients, getInendsDetail } from '@/services/rhilex/shuruziyuan
 import { defaultPagination, INEND_LIST } from '@/utils/constant';
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProCard, ProTable } from '@ant-design/pro-components';
-import { useIntl, useParams, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
+import { useRequest } from 'ahooks';
 
 type SubDeviceItem = {
   ip?: string;
@@ -63,7 +65,7 @@ const SubDeviceList = () => {
             current = defaultPagination.defaultCurrent,
             pageSize = defaultPagination.defaultPageSize,
           }) => {
-            const { data } = await getInendsClients({
+            const data = await getInendsClients({
               uuid: inendId || '',
               current,
               size: pageSize,

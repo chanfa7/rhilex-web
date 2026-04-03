@@ -1,4 +1,4 @@
-import { modal } from '@/components/PopupHack';
+import { message, modal } from '@/components/PopupHack';
 import PageContainer from '@/components/ProPageContainer';
 import ProTag, { StatusType } from '@/components/ProTag';
 import { getTransceiverList, postTransceiverCtrl } from '@/services/rhilex/tongxinmozu';
@@ -12,8 +12,9 @@ import {
 } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { useIntl, useRequest } from '@umijs/max';
-import { Dropdown, message, Space } from 'antd';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
+import { Dropdown, Space } from 'antd';
 import type { ItemType } from 'antd/es/menu/interface';
 import type { MenuInfo } from 'rc-menu/lib/interface';
 import { useState } from 'react';
@@ -232,7 +233,7 @@ const CommunicationModule = () => {
           search={false}
           pagination={false}
           request={async () => {
-            const { data } = await getTransceiverList();
+            const data = await getTransceiverList();
 
             return Promise.resolve({
               data,

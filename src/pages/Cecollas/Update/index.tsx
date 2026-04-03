@@ -7,7 +7,8 @@ import {
 import { DEFAULT_GROUP_KEY_CECOLLAS } from '@/utils/constant';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { BetaSchemaForm } from '@ant-design/pro-components';
-import { useIntl, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 import { useEffect, useRef } from 'react';
 import { CecollasFormItem, columns } from '../columns';
 import { CecollasType, Mode } from '../enum';

@@ -1,10 +1,10 @@
 import ProDescriptions from '@/components/ProDescriptions';
 import ProTag, { StatusType } from '@/components/ProTag';
 import { postPlugwareService } from '@/services/rhilex/chajianguanli';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import { PluginName, PluginUUID } from '../enum';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 const columns = [
   {
@@ -49,7 +49,7 @@ const NgrokDetail = () => {
     <ProDescriptions
       columns={columns}
       request={async () => {
-        const { data } = await postPlugwareService({
+        const data = await postPlugwareService({
           uuid: PluginUUID.NGROKC,
           name: PluginName.CONFIG,
           args: '',

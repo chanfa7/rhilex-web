@@ -1,5 +1,6 @@
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { SelectLang, useModel } from '@umijs/max';
+import { SelectLang } from '@/locales';
+import { useAppStore } from '@/store';
 
 import { DOC_URL } from '@/utils/constant';
 import Avatar from './AvatarDropdown';
@@ -8,9 +9,9 @@ import NoticeIcon from './NoticeIcon';
 export type SiderTheme = 'light' | 'dark';
 
 const GlobalHeaderRight = () => {
-  const { initialState } = useModel('@@initialState');
+  const settings = useAppStore((s) => s.settings);
 
-  if (!initialState || !initialState.settings) {
+  if (!settings) {
     return null;
   }
 

@@ -14,7 +14,8 @@ import {
   ProFormSelect,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useIntl, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 import { Button, Empty, Space } from 'antd';
 import { useRef, useState } from 'react';
 import { defaultConfig } from '.';

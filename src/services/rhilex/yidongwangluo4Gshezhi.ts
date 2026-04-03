@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 获取APN参数 GET /api/v1/mn4g/apn */
 export async function getMn4GApn(options?: { [key: string]: any }) {

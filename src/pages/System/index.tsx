@@ -1,6 +1,7 @@
 import PageContainer from '@/components/ProPageContainer';
 import { ProCard } from '@ant-design/pro-components';
-import { useIntl, useModel } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import NoFoundPage from '../403';

@@ -5,7 +5,8 @@ import { endsWith } from '@/utils/redash';
 import { DownloadOutlined, UploadOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProCard, ProForm, ProFormUploadDragger } from '@ant-design/pro-components';
-import { useIntl, useModel } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
 import { Button, Space, Upload } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 

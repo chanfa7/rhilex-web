@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 多行删除 DELETE /api/v1/snmp_oids_sheet/delIds */
 export async function deleteSnmpOidsSheetDelIds(
@@ -105,7 +105,6 @@ export async function postSnmpOidsSheetSheetImport(
     {
       method: 'POST',
       data: formData,
-      requestType: 'form',
       ...(options || {}),
     },
   );

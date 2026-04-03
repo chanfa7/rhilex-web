@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 立即更新NTP时间 PUT /api/v1/settings/ntp */
 export async function putSettingsNtp(options?: { [key: string]: any }) {

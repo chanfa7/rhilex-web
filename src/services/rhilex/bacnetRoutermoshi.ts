@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** delAll DELETE /api/v1/bacnet_router_sheet/delAll */
 export async function deleteBacnetRouterSheetDelAll(
@@ -121,7 +121,6 @@ export async function postBacnetRouterSheetSheetImport(
   return request<Record<string, any>>('/api/v1/bacnet_router_sheet/sheetImport', {
     method: 'POST',
     data: formData,
-    requestType: 'form',
     ...(options || {}),
   });
 }

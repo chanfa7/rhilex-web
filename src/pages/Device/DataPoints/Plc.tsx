@@ -7,7 +7,8 @@ import {
 import { omit } from '@/utils/redash';
 import type { ActionType, EditableFormInstance, ProColumns } from '@ant-design/pro-components';
 import { ProFormCascader, ProFormText } from '@ant-design/pro-components';
-import { useIntl, useParams } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import { ByteOrder, PLCDataType, plcDataTypeOptions } from './enum';
 
@@ -175,7 +176,7 @@ const PlcDataSheet = ({ isDetail = false }: BaseDataSheetProps) => {
         current = defaultPagination.defaultCurrent,
         pageSize = defaultPagination.defaultPageSize,
       }) => {
-        const { data } = await getS1200DataSheetList({
+        const data = await getS1200DataSheetList({
           device_uuid: deviceId || '',
           current,
           size: pageSize,

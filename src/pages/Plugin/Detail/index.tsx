@@ -1,6 +1,7 @@
 import { postPlugwareService } from '@/services/rhilex/chajianguanli';
 import type { ProFormInstance } from '@ant-design/pro-components';
-import { useIntl, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 import { Button, Modal, Space } from 'antd';
 import { useRef } from 'react';
 import { defaultConfig } from '..';

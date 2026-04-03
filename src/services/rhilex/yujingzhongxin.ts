@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 清空日志 DELETE /api/v1/alarm_log/clear */
 export async function deleteAlarmLogClear(options?: { [key: string]: any }) {

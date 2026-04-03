@@ -10,7 +10,10 @@ import { cn, generateRandomId, IconFont } from '@/utils/utils';
 import { CheckOutlined, CopyOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import type { ModalFormProps, ProFormInstance } from '@ant-design/pro-components';
 import { ModalForm, ProFormText, ProList } from '@ant-design/pro-components';
-import { history, useIntl, useModel, useRequest } from '@umijs/max';
+import { useNavigate } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { useSchemaStore } from '@/store';
+import { useRequest } from 'ahooks';
 import { Popconfirm, Space, Tooltip } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -21,16 +24,17 @@ type SchemaListProps = ModalFormProps & {
 };
 
 const SchemaList = ({ open, changeOpen }: SchemaListProps) => {
+  const navigate = useNavigate();
   const formRef = useRef<ProFormInstance>();
   const { formatMessage } = useIntl();
   const {
     activeSchema,
     schemaList,
-    run: getSchemaList,
+    schemaRun: getSchemaList,
     setActiveSchema,
-    refresh,
+    schemaRefresh: refresh,
     setActiveDataCenterKey: setKey,
-  } = useModel('useSchema');
+  } = useSchemaStore();
   const [initialValue, setInitialValue] = useState<Partial<SchemaItem>>();
   const [copied, setCopied] = useState<string>('');
 
@@ -113,7 +117,7 @@ const SchemaList = ({ open, changeOpen }: SchemaListProps) => {
                       )}
                       onClick={() => {
                         if (!published) return;
-                        history.push('/repository');
+                        navigate('/repository');
                         setKey(uuid);
                       }}
                     >

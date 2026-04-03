@@ -8,7 +8,12 @@ import {
   RightOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { history, useIntl, useModel } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { useModel } from '@/hooks/useModel';
+import { useAppStore } from '@/store';
+import { useCommonStore } from '@/store';
+import { useSystemStore } from '@/store';
 import type { PopoverProps } from 'antd';
 import { App, Avatar, Divider, Flex, Popover, Space, Tag } from 'antd';
 import dayjs from 'dayjs';
@@ -17,11 +22,13 @@ import './index.less';
 const HeaderDropdown: React.FC<PopoverProps> = (props) => {
   const { modal } = App.useApp();
   const { formatMessage } = useIntl();
+  const navigate = useNavigate();
   const { logout } = useModel('useUser');
-  const { isFreeTrial } = useModel('useCommon');
-  const { setActiveKey } = useModel('useSystem');
-  const { initialState } = useModel('@@initialState');
-  const { currentUser, endAuthorize, type } = initialState || {};
+  const isFreeTrial = useCommonStore((s) => s.isFreeTrial);
+  const setActiveKey = useSystemStore((s) => s.setActiveKey);
+  const currentUser = useAppStore((s) => s.currentUser);
+  const endAuthorize = useAppStore((s) => s.endAuthorize);
+  const type = useAppStore((s) => s.type);
 
   /**
    * 退出登录，并且将当前的 url 保存
@@ -170,7 +177,7 @@ const HeaderDropdown: React.FC<PopoverProps> = (props) => {
               justify="space-between"
               className="m-[10px] cursor-pointer"
               onClick={() => {
-                history.push('/system');
+                navigate('/system');
                 setActiveKey('user');
               }}
             >

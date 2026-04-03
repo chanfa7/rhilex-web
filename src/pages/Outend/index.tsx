@@ -11,7 +11,10 @@ import { MAX_TOTAL } from '@/utils/constant';
 import { DownOutlined, ExceptionOutlined, PlusOutlined, PoweroffOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { history, useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { useRequest } from 'ahooks';
+import { useCommonStore } from '@/store';
 import { Button, Dropdown, Popconfirm } from 'antd';
 import type { ItemType } from 'antd/es/menu/interface';
 import type { MenuInfo } from 'rc-menu/lib/interface';
@@ -28,9 +31,10 @@ export type OutendItem = {
 };
 
 const Outend = () => {
+  const navigate = useNavigate();
   const actionRef = useRef<ActionType>();
   const { formatMessage } = useIntl();
-  const { isFreeTrial, total, changeTotal } = useModel('useCommon');
+  const { isFreeTrial, total, changeTotal } = useCommonStore();
 
   const [open, setOpen] = useState<boolean>(false);
   const [restartId, setRestartId] = useState<string>('');
@@ -52,7 +56,7 @@ const Outend = () => {
     (params: API.getDevicesDeviceErrMsgParams) => getOutendsOutendErrMsg(params),
     {
       manual: true,
-      onSuccess: (res) =>
+      onSuccess: (res: string) =>
         modal.error({
           title: formatMessage({ id: 'common.title.exception' }),
           content: <div className="break-words">{res}</div>,
@@ -106,10 +110,10 @@ const Outend = () => {
       key: 'option',
       width: 230,
       render: (_, { uuid, state }) => [
-        <a key="detail" onClick={() => history.push(`/outend/detail/${uuid}`)}>
+        <a key="detail" onClick={() => navigate(`/outend/detail/${uuid}`)}>
           {formatMessage({ id: 'button.detail' })}
         </a>,
-        <a key="edit" onClick={() => history.push(`/outend/edit/${uuid}`)}>
+        <a key="edit" onClick={() => navigate(`/outend/edit/${uuid}`)}>
           {formatMessage({ id: 'button.edit' })}
         </a>,
         <Popconfirm
@@ -157,7 +161,7 @@ const Outend = () => {
             <Button
               type="primary"
               key="new"
-              onClick={() => history.push('/outend/new')}
+              onClick={() => navigate('/outend/new')}
               icon={<PlusOutlined />}
               disabled={isFreeTrial && total >= MAX_TOTAL}
             >

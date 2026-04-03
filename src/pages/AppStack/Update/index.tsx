@@ -7,7 +7,9 @@ import { getAppDetail, postAppCreate, putAppUpdate } from '@/services/rhilex/qin
 import { APP_LIST } from '@/utils/constant';
 import { generateRandomId } from '@/utils/utils';
 import type { ProFormColumnsType, ProFormInstance } from '@ant-design/pro-components';
-import { history, useIntl, useParams, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRequest } from 'ahooks';
 import { useEffect, useRef, useState } from 'react';
 import { AppStackItem } from '..';
 import { baseColumns } from '../columns';
@@ -22,6 +24,7 @@ const defaultValue = {
 };
 
 const UpdateForm = () => {
+  const navigate = useNavigate();
   const { uuid } = useParams();
   const formRef = useRef<ProFormInstance>();
   const { formatMessage } = useIntl();
@@ -75,7 +78,7 @@ const UpdateForm = () => {
         message.success(formatMessage({ id: 'message.success.new' }));
       }
       setLoading(false);
-      history.push(APP_LIST);
+      navigate(APP_LIST);
       return true;
     } catch (error) {
       setLoading(false);

@@ -1,5 +1,5 @@
 import ProTag, { StatusType } from '@/components/ProTag';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import { InendType, inendTypeOption } from '../enum';
 import { COMTC_EVENT_FORWARDER } from './comtcEventForwardar';
 import { CUSTOM_PROTOCOL_SERVER } from './customProtocol';
@@ -7,7 +7,7 @@ import { DEFAULT_CONFIG } from './defaultConfig';
 import { GENERIC_MQTT_SERVER } from './genericMqttServer';
 import { INTERNAL_EVENT } from './internalEvent';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 /**
  * 类型配置

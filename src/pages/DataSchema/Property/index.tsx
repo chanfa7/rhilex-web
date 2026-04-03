@@ -17,7 +17,9 @@ import {
 } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
+import { useRequest } from 'ahooks';
 import type { DescriptionsProps } from 'antd';
 import { Button, Descriptions, Popconfirm, Tooltip } from 'antd';
 import { useEffect, useRef, useState } from 'react';
@@ -256,7 +258,7 @@ const PropertyList = () => {
         params={{ schema_uuid: activeSchema.uuid }}
         request={async ({ current, pageSize, ...keyword }) => {
           if (keyword?.schema_uuid) {
-            const { data } = await getSchemaPropertiesList({ current, size: pageSize, ...keyword });
+            const data = await getSchemaPropertiesList({ current, size: pageSize, ...keyword });
             return Promise.resolve({
               data: data?.records || [],
               total: data?.total || 0,

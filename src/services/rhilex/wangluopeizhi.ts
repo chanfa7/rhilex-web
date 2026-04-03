@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 当前网卡连接 GET /api/v1/settings/connection */
 export async function getSettingsConnection(options?: { [key: string]: any }) {

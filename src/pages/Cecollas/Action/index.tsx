@@ -9,8 +9,11 @@ import {
   ProFormInstance,
   ProFormProps,
 } from '@ant-design/pro-components';
-import { history, useIntl, useParams, useRequest } from '@umijs/max';
-import { Button, message, Popconfirm } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
+import { Button, Popconfirm } from 'antd';
+import { message } from '@/components/PopupHack';
 import { useEffect, useRef } from 'react';
 import { CecollasItem } from '..';
 
@@ -22,6 +25,7 @@ export type ActionModalParams = {
 type ActionModalProps = ProFormProps;
 
 const ActionModal = ({ ...props }: ActionModalProps) => {
+  const navigate = useNavigate();
   const { formatMessage } = useIntl();
   const formRef = useRef<ProFormInstance>();
   const { uuid } = useParams();
@@ -51,7 +55,7 @@ const ActionModal = ({ ...props }: ActionModalProps) => {
 
   return (
     <PageContainer
-      onBack={() => history.push(CECOLLAS_LIST)}
+      onBack={() => navigate(CECOLLAS_LIST)}
       title={formatMessage({ id: 'cecollas.title.action' }, { name: detail?.name })}
     >
       <ProCard>

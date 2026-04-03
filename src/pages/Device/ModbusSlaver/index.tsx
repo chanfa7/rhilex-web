@@ -2,10 +2,12 @@ import PageContainer from '@/components/ProPageContainer';
 import { getModbusSlaverSheetList } from '@/services/rhilex/modbusSlaverjicunqiguanli';
 import { defaultPagination, DEVICE_LIST } from '@/utils/constant';
 import { ProTable } from '@ant-design/pro-components';
-import { history, useIntl, useParams } from '@umijs/max';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 import { Tag } from 'antd';
 
 const ModbusSlaverRegisters = () => {
+  const navigate = useNavigate();
   const { formatMessage } = useIntl();
   const { deviceId } = useParams();
 
@@ -72,7 +74,7 @@ const ModbusSlaverRegisters = () => {
   return (
     <PageContainer
       title={formatMessage({ id: 'device.title.registers' })}
-      onBack={() => history.push(DEVICE_LIST)}
+      onBack={() => navigate(DEVICE_LIST)}
     >
       <ProTable
         rowKey="uuid"
@@ -83,7 +85,7 @@ const ModbusSlaverRegisters = () => {
           current = defaultPagination.defaultCurrent,
           pageSize = defaultPagination.defaultPageSize,
         }) => {
-          const { data } = await getModbusSlaverSheetList({
+          const data = await getModbusSlaverSheetList({
             current,
             size: pageSize,
             device_uuid: deviceId,

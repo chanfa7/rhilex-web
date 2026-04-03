@@ -11,7 +11,9 @@ import { defaultPagination } from '@/utils/constant';
 import { DeleteOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import { ProDescriptions, ProTable } from '@ant-design/pro-components';
-import { Link, useIntl, useRequest } from '@umijs/max';
+import { Link } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 import { Button, Modal, Popconfirm, Tag } from 'antd';
 import dayjs from 'dayjs';
 import { useRef, useState } from 'react';
@@ -53,12 +55,14 @@ const AlarmLog = () => {
   });
 
   // 获取设备列表
-  const { data: allDeviceData } = useRequest(() => getDevicesList({ current: 1, size: 999 }), {
-    formatResult: (res) => res?.data?.records,
+  const { data: allDeviceData } = useRequest(async () => {
+    const data = await getDevicesList({ current: 1, size: 999 });
+    return data?.records;
   });
 
-  const { data: rules } = useRequest(() => getAlarmRuleList({ current: 1, size: 999 }), {
-    formatResult: (res) => res.data.records,
+  const { data: rules } = useRequest(async () => {
+    const data = await getAlarmRuleList({ current: 1, size: 999 });
+    return data.records;
   });
 
   const handleOnClose = () => {
@@ -189,7 +193,7 @@ const AlarmLog = () => {
             size: pageSize,
             ruleId,
           };
-          const { data } = await getAlarmLogList(params);
+          const data = await getAlarmLogList(params);
 
           return Promise.resolve({
             data: data.records,
@@ -237,7 +241,7 @@ const AlarmLog = () => {
           rootClassName="alarm-log-detail"
           columns={columns as ProDescriptionsItemProps<Record<string, any>, AlarmItem>[]}
           request={async () => {
-            const { data } = await getAlarmLogDetail({ uuid: activeKey });
+            const data = await getAlarmLogDetail({ uuid: activeKey });
             return Promise.resolve({
               success: true,
               data,

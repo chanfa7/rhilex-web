@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 删除进程 DELETE /api/v1/goods/ */
 export async function deleteGoods(
@@ -52,7 +52,6 @@ export async function postGoodsCreate(
   return request<Record<string, any>>('/api/v1/goods/create', {
     method: 'POST',
     data: formData,
-    requestType: 'form',
     ...(options || {}),
   });
 }
@@ -178,7 +177,6 @@ export async function putGoodsUpdate(
   return request<Record<string, any>>('/api/v1/goods/update', {
     method: 'PUT',
     data: formData,
-    requestType: 'form',
     ...(options || {}),
   });
 }

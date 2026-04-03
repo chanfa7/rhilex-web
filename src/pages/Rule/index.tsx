@@ -9,7 +9,10 @@ import { getInendsDetail, getRulesByInend } from '@/services/rhilex/shuruziyuang
 import { DEVICE_LIST, INEND_LIST } from '@/utils/constant';
 import { PlusOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { ProTable, type ProColumns } from '@ant-design/pro-components';
-import { history, useIntl, useModel, useParams, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRequest } from 'ahooks';
+import { useCommonStore } from '@/store';
 import { Button, Popconfirm } from 'antd';
 import { useState } from 'react';
 import Debug from './Debug';
@@ -36,9 +39,10 @@ const defaultDebugConfig = {
 };
 
 const Rule = () => {
+  const navigate = useNavigate();
   const { groupId, deviceId, inendId } = useParams();
   const { formatMessage } = useIntl();
-  const { detailConfig, changeConfig, initialConfig } = useModel('useCommon');
+  const { detailConfig, changeConfig, initialConfig } = useCommonStore();
 
   const [dataSource, setDataSource] = useState<RuleItem[]>([]);
   const [title, setTitle] = useState<string>();
@@ -53,7 +57,7 @@ const Rule = () => {
     {
       ready: !!deviceId,
       refreshDeps: [deviceId],
-      onSuccess: (res) => setDataSource(res),
+      onSuccess: (res) => setDataSource(res as RuleItem[]),
     },
   );
 
@@ -62,7 +66,7 @@ const Rule = () => {
     {
       ready: !!inendId,
       refreshDeps: [inendId],
-      onSuccess: (res) => setDataSource(res),
+      onSuccess: (res) => setDataSource(res as RuleItem[]),
     },
   );
 
@@ -155,7 +159,7 @@ const Rule = () => {
           key="edit"
           onClick={() => {
             const editUrl = goNewUrl.replace('new', `edit/${uuid}`);
-            history.push(editUrl);
+            navigate(editUrl);
           }}
         >
           {formatMessage({ id: 'button.edit' })}
@@ -173,7 +177,7 @@ const Rule = () => {
 
   return (
     <PageContainer
-      onBack={() => history.push(goBackUrl)}
+      onBack={() => navigate(goBackUrl)}
       title={`${title} - ${formatMessage({ id: 'ruleConfig.title' })}`}
     >
       <ProTable
@@ -189,7 +193,7 @@ const Rule = () => {
             ghost
             type="primary"
             key="new-custom-rule"
-            onClick={() => history.push(goNewUrl)}
+            onClick={() => navigate(goNewUrl)}
             icon={<PlusOutlined />}
           >
             {formatMessage({ id: 'ruleConfig.button.custom' })}

@@ -1,4 +1,4 @@
-import { useModel } from '@umijs/max';
+import { useAppStore } from '@/store';
 import { Spin } from 'antd';
 import { useEffect } from 'react';
 import HeaderDropdown from '../HeaderDropdown';
@@ -8,8 +8,8 @@ export type GlobalHeaderRightProps = {
 };
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
-  const { initialState } = useModel('@@initialState');
-  const { currentUser } = initialState || {};
+  const currentUser = useAppStore((s) => s.currentUser);
+  const initialState = useAppStore();
 
   useEffect(() => {
     if (!initialState || !currentUser || !currentUser.username) {

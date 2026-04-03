@@ -1,8 +1,8 @@
 /**
  * 标准库函数
  */
-import { getIntl, getLocale } from '@umijs/max';
-const {formatMessage} = getIntl(getLocale());
+import { getIntl, getLocale } from '@/locales';
+const {formatMessage} = getIntl();
 
 export const getDebugCode = (info?: string) => `Actions = {
   function(args)

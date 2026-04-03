@@ -15,7 +15,8 @@ import {
   ProFormSelect,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useIntl, useModel } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
 import { AutoComplete } from 'antd';
 import { useEffect, useRef } from 'react';
 import type { Property } from '../typings';
@@ -68,11 +69,10 @@ const CustomPropertyForm = ({ initialValue, reload, ...props }: PropertyFormProp
         let params = {
           ...values,
           unit: values?.unit || '',
-          rule:
-            {
-              ...values?.rule,
+          rule: {
+              ...(values?.rule || {}),
               defaultValue: '0',
-            } || {},
+            },
           schemaId: activeSchema.uuid,
         };
         if (initialValue?.uuid) {

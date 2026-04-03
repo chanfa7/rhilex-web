@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 多行删除 DELETE /api/v1/s1200_data_sheet/delIds */
 export async function deleteS1200DataSheetDelIds(
@@ -108,7 +108,6 @@ export async function postS1200DataSheetSheetImport(
     {
       method: 'POST',
       data: formData,
-      requestType: 'form',
       ...(options || {}),
     },
   );

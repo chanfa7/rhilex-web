@@ -9,7 +9,8 @@ import {
   ProFormSelect,
   ProFormSwitch,
 } from '@ant-design/pro-components';
-import { useIntl, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 import { useSize } from 'ahooks';
 import { Button, Space } from 'antd';
 import { useRef } from 'react';

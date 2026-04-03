@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 获取配置 GET /api/v1/cronReboot/config */
 export async function getCronRebootConfig(options?: { [key: string]: any }) {

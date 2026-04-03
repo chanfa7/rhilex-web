@@ -5,7 +5,7 @@ import {
   MinusCircleOutlined,
   SyncOutlined,
 } from '@ant-design/icons';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import type { TagProps } from 'antd';
 import { Tag } from 'antd';
 
@@ -241,7 +241,7 @@ const ProTag = ({ children, type, ...props }: ProTagProps) => {
   return (
     <Tag {...tagProps}>
       {type && activeItem?.text
-        ? getIntl(getLocale()).formatMessage({ id: activeItem?.text })
+        ? getIntl().formatMessage({ id: activeItem?.text })
         : bool2String(children)}
     </Tag>
   );

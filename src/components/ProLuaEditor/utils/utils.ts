@@ -11,7 +11,7 @@ import { buildInKeywords, buildInSnippet, builtInFuncs } from '@/templates/Build
 import { CompletionContext } from '@codemirror/autocomplete';
 import { Diagnostic, linter } from '@codemirror/lint';
 import luaparse from 'luaparse';
-import luaminp from './luamin';
+import * as luaminp from './luamin';
 
 /**
  * autocomplete 代码提示

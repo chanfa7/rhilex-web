@@ -7,7 +7,9 @@ import { defaultPagination } from '@/utils/constant';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, RequestOptionsType } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { history, Link, useIntl, useRequest } from '@umijs/max';
+import { useNavigate, Link } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 import { Button, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 import TestRule from './Test';
@@ -39,6 +41,7 @@ const defaultConfig = {
 };
 
 const AlarmRule = () => {
+  const navigate = useNavigate();
   const actionRef = useRef<ActionType>();
   const { formatMessage } = useIntl();
   const [testConfig, setTestConfig] = useState<FormConfig>(defaultConfig);
@@ -56,13 +59,12 @@ const AlarmRule = () => {
   );
 
   // 北向列表
-  const { data: outends } = useRequest(() => getOutendsList(), {
-    formatResult: (res) => {
-      return (res as any).data?.map((item: OutendItem) => ({
-        label: item.name,
-        value: item.uuid,
-      }));
-    },
+  const { data: outends } = useRequest(async () => {
+    const data = await getOutendsList();
+    return (data as any)?.map((item: OutendItem) => ({
+      label: item.name,
+      value: item.uuid,
+    }));
   });
 
   const columns: ProColumns<Partial<AlarmRuleItem>>[] = [
@@ -142,10 +144,10 @@ const AlarmRule = () => {
         >
           {formatMessage({ id: 'button.test' })}
         </a>,
-        <a key="detail" onClick={() => history.push(`/alarm/rule/detail/${uuid}`)}>
+        <a key="detail" onClick={() => navigate(`/alarm/rule/detail/${uuid}`)}>
           {formatMessage({ id: 'button.detail' })}
         </a>,
-        <a key="edit" onClick={() => history.push(`/alarm/rule/edit/${uuid}`)}>
+        <a key="edit" onClick={() => navigate(`/alarm/rule/edit/${uuid}`)}>
           {formatMessage({ id: 'button.edit' })}
         </a>,
 
@@ -175,7 +177,7 @@ const AlarmRule = () => {
           current = defaultPagination.defaultCurrent,
           pageSize = defaultPagination.defaultPageSize,
         }) => {
-          const { data } = await getAlarmRuleList({ current, size: pageSize });
+          const data = await getAlarmRuleList({ current, size: pageSize });
 
           return Promise.resolve({
             data: data.records,
@@ -187,7 +189,7 @@ const AlarmRule = () => {
           <Button
             type="primary"
             key="new"
-            onClick={() => history.push('/alarm/rule/new')}
+            onClick={() => navigate('/alarm/rule/new')}
             icon={<PlusOutlined />}
           >
             {formatMessage({ id: 'button.new' })}

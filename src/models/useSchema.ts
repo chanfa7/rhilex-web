@@ -1,7 +1,8 @@
 import type { ActiveSchema } from '@/pages/DataSchema/typings';
 import { getSchemaList } from '@/services/rhilex/shujumoxing';
-import { useModel, useRequest } from '@umijs/max';
+import { useRequest } from 'ahooks';
 import { useEffect, useState } from 'react';
+import { useCommonStore } from '@/store';
 
 export const defaultActiveSchema = {
   uuid: '',
@@ -10,7 +11,7 @@ export const defaultActiveSchema = {
 };
 
 const useSchema = () => {
-  const { changeTotal } = useModel('useCommon');
+  const changeTotal = useCommonStore((s) => s.changeTotal);
   const [activeSchema, setActiveSchema] = useState<ActiveSchema>(defaultActiveSchema);
   const [activeDataCenterkey, setActiveDataCenterKey] = useState<string>('');
 

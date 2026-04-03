@@ -18,7 +18,10 @@ import {
 } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProCard, ProTable } from '@ant-design/pro-components';
-import { history, useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { useRequest } from 'ahooks';
+import { useCommonStore } from '@/store';
 import { Button, Dropdown, Popconfirm, Space } from 'antd';
 import type { ItemType } from 'antd/es/menu/interface';
 import type { MenuInfo } from 'rc-menu/lib/interface';
@@ -38,9 +41,10 @@ export type DeviceItem = {
 };
 
 const Devices = () => {
+  const navigate = useNavigate();
   const actionRef = useRef<ActionType>();
   const { formatMessage } = useIntl();
-  const { isFreeTrial, total, changeTotal } = useModel('useCommon');
+  const { isFreeTrial, total, changeTotal } = useCommonStore();
 
   const [open, setOpen] = useState<boolean>(false);
   const [activeDevice, setActiveDevice] = useState<string>('');
@@ -65,7 +69,7 @@ const Devices = () => {
     (params: API.getDevicesDeviceErrMsgParams) => getDevicesDeviceErrMsg(params),
     {
       manual: true,
-      onSuccess: (res) =>
+      onSuccess: (res: string) =>
         modal.error({
           title: formatMessage({ id: 'common.title.exception' }),
           content: <div className="break-words">{res}</div>,
@@ -158,16 +162,16 @@ const Devices = () => {
           }),
         );
 
-        history.push(`/device/${gid}/${uuid}/rule`);
+        navigate(`/device/${gid}/${uuid}/rule`);
         break;
       case 'data-sheet':
         if (!type) return;
 
         if (type === DeviceType.GENERIC_MODBUS_SLAVER) {
-          history.push(`/device/${gid}/${uuid}/registers`);
+          navigate(`/device/${gid}/${uuid}/registers`);
         } else {
           localStorage.setItem('deviceType', type);
-          history.push(`/device/${gid}/${uuid}/data-sheet`);
+          navigate(`/device/${gid}/${uuid}/data-sheet`);
         }
 
         break;
@@ -190,10 +194,10 @@ const Devices = () => {
 
         return (
           <Space>
-            <a key="detail" onClick={() => history.push(`/device/${gid}/detail/${uuid}`)}>
+            <a key="detail" onClick={() => navigate(`/device/${gid}/detail/${uuid}`)}>
               {formatMessage({ id: 'button.detail' })}
             </a>
-            <a key="edit" onClick={() => history.push(`/device/${gid}/edit/${uuid}`)}>
+            <a key="edit" onClick={() => navigate(`/device/${gid}/edit/${uuid}`)}>
               {formatMessage({ id: 'button.edit' })}
             </a>
             <Popconfirm
@@ -269,7 +273,7 @@ const Devices = () => {
               search={false}
               params={{ uuid: activeGroupKey }}
               request={async ({ current, pageSize, ...keyword }) => {
-                const { data } = await getDevicesListByGroup({
+                const data = await getDevicesListByGroup({
                   current,
                   size: pageSize,
                   ...keyword,
@@ -289,7 +293,7 @@ const Devices = () => {
                   type="primary"
                   icon={<PlusOutlined />}
                   disabled={isFreeTrial && total >= MAX_TOTAL}
-                  onClick={() => history.push(`/device/${activeGroupKey}/new`)}
+                  onClick={() => navigate(`/device/${activeGroupKey}/new`)}
                 >
                   {formatMessage({ id: 'button.new' })}
                 </Button>,

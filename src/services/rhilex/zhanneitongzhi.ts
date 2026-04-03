@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 一键清空 PUT /api/v1/notify/clear */
 export async function putNotifyClear(options?: { [key: string]: any }) {

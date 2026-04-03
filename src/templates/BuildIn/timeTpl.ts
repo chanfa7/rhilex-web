@@ -3,8 +3,8 @@
  */
 
 import { toPascalCase } from '@/utils/utils';
-import { getIntl, getLocale } from '@umijs/max';
-const {formatMessage} = getIntl(getLocale());
+import { getIntl, getLocale } from '@/locales';
+const {formatMessage} = getIntl();
 
 const timeList = [
   { target: 'Time', detail: formatMessage({ id: 'component.tpl.time' }) },

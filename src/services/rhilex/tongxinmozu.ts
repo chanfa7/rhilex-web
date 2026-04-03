@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 发送指令 POST /api/v1/transceiver/ctrl */
 export async function postTransceiverCtrl(

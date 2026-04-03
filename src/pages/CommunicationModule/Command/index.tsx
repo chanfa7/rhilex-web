@@ -1,6 +1,7 @@
 import { postTransceiverCtrl } from '@/services/rhilex/tongxinmozu';
 import { cn } from '@/utils/utils';
-import { getIntl, getLocale, useRequest } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
+import { useRequest } from 'ahooks';
 import type { ModalProps } from 'antd';
 import { Button, Form, Modal } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
@@ -14,7 +15,7 @@ type SendCommandProps = ModalProps & {
   onCancel: () => void;
 };
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 const SendCommand = ({ name, type, onCancel, ...props }: SendCommandProps) => {
   const [form] = Form.useForm();

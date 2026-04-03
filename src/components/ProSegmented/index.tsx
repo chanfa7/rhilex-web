@@ -1,4 +1,4 @@
-import { useIntl } from '@umijs/max';
+import { useIntl } from 'react-intl';
 import { ConfigProvider, Segmented, SegmentedProps } from 'antd';
 
 type ProSegmentedProps = Omit<SegmentedProps, 'options'>;

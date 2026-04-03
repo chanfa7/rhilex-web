@@ -6,7 +6,9 @@ import { FormItemType } from '@/utils/enum';
 import { validateFormItem } from '@/utils/utils';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { FooterToolbar, ProCard, ProForm, ProFormText } from '@ant-design/pro-components';
-import { history, useIntl, useParams, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRequest } from 'ahooks';
 import { Button, Popconfirm } from 'antd';
 import type { Rule } from 'antd/es/form';
 import { useEffect, useRef, useState } from 'react';
@@ -21,6 +23,7 @@ export type FormParams = {
 };
 
 const UpdateForm = () => {
+  const navigate = useNavigate();
   const formRef = useRef<ProFormInstance>();
   const { ruleId, deviceId, inendId, groupId } = useParams();
   const { formatMessage } = useIntl();
@@ -60,7 +63,7 @@ const UpdateForm = () => {
         await postRulesCreate(params);
         message.success(formatMessage({ id: 'message.success.new' }));
       }
-      history.push(getBackUrl());
+      navigate(getBackUrl());
       setLoading(false);
       return true;
     } catch (err) {

@@ -1,5 +1,5 @@
 import { builtInChildren, builtInLuaTpl, quickChildren, quickLuaTpl } from '@/templates';
-import { useIntl } from '@umijs/max';
+import { useIntl } from 'react-intl';
 import { Collapse, Divider, Space } from 'antd';
 import { useState } from 'react';
 import type { TplGroupItem, TplItem, ValConfig } from './typings';

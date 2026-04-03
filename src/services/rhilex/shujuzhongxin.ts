@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 清空数据 DELETE /api/v1/datacenter/clearSchemaData */
 export async function deleteDatacenterClearSchemaData(

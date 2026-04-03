@@ -1,4 +1,4 @@
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import { comTpl } from './comTpl';
 import { dataRepoTpl } from './dataRepoTpl';
 import { dataToTpl } from './dataToTpl';
@@ -12,7 +12,7 @@ import { rhilexg1Tpl } from './rhilexg1Tpl';
 import { standardTpl } from './standardTpl';
 import { timeTpl } from './timeTpl';
 
-const {formatMessage} = getIntl(getLocale());
+const {formatMessage} = getIntl();
 
 /**
  * 编辑器代码提示 - Lua 关键词

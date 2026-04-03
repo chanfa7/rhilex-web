@@ -1,5 +1,6 @@
 import type { ActionType, EditableFormInstance, ProColumns } from '@ant-design/pro-components';
-import { useIntl, useParams } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 
 import DataSheet from '@/components/DataSheet';
@@ -118,11 +119,11 @@ const BacnetDataSheet = ({ isDetail = false }: BaseDataSheetProps) => {
         current = defaultPagination.defaultCurrent,
         pageSize = defaultPagination.defaultPageSize,
       }) => {
-        const { data } = await getBacnetipDataSheetList({
+        const data = (await getBacnetipDataSheetList({
           device_uuid: deviceId || '',
           current,
           size: pageSize,
-        });
+        })) as Record<string, any>;
 
         return Promise.resolve({
           data: data?.records || [],

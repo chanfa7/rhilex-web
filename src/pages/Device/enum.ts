@@ -1,6 +1,6 @@
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 /**
  * 设备类型枚举

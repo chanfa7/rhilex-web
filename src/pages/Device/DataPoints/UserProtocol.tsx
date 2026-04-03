@@ -16,7 +16,8 @@ import {
 } from '@/services/rhilex/yonghuzidingyixieyidianweiguanli';
 import { defaultPagination } from '@/utils/constant';
 import type { ActionType, EditableFormInstance, ProColumns } from '@ant-design/pro-components';
-import { useIntl, useParams } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
 import type { Rule } from 'antd/es/form';
 import { useRef } from 'react';
 
@@ -92,7 +93,7 @@ const UserProtocolDataSheet = ({ isDetail = false }: BaseDataSheetProps) => {
         current = defaultPagination.defaultCurrent,
         pageSize = defaultPagination.defaultPageSize,
       }) => {
-        const { data } = await getUserProtocolSheetList({
+        const data = await getUserProtocolSheetList({
           device_uuid: deviceId || '',
           current,
           size: pageSize,

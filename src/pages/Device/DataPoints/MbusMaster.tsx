@@ -21,7 +21,8 @@ import {
   type EditableFormInstance,
   type ProColumns,
 } from '@ant-design/pro-components';
-import { useIntl, useParams } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import { MBusDeviceType, mBusDeviceTypeOptions } from './enum';
 
@@ -63,7 +64,7 @@ const MbusMasterDataSheet = ({ isDetail = false }: BaseDataSheetProps) => {
     current = defaultPagination.defaultCurrent,
     pageSize = defaultPagination.defaultPageSize,
   }) => {
-    const { data } = await getMbusMasterSheetList({
+    const data = await getMbusMasterSheetList({
       device_uuid: deviceId || '',
       current,
       size: pageSize,

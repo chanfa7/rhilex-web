@@ -3,7 +3,7 @@ import ProTag, { StatusType } from '@/components/ProTag';
 import { getTransceiverDetail, postTransceiverCtrl } from '@/services/rhilex/tongxinmozu';
 import { IconFont } from '@/utils/utils';
 import { green } from '@ant-design/colors';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import type { ModalProps } from 'antd';
 import { Button, Modal, Progress, Space } from 'antd';
 import { TopicType, TransceiverTopic, TransceiverType, TransceiverTypeOption } from '../enum';
@@ -13,7 +13,7 @@ type DetailProps = ModalProps & {
   type: number;
 };
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 const labelWidth = getLocale() === 'en-US' ? 120 : 80;
 
 const Detail = ({ name, type, ...props }: DetailProps) => {
@@ -121,7 +121,7 @@ const Detail = ({ name, type, ...props }: DetailProps) => {
 
           return Promise.resolve({
             success: true,
-            data: res?.data,
+            data: res,
           });
         }}
       />

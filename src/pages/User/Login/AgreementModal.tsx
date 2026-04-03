@@ -1,4 +1,4 @@
-import { useIntl } from '@umijs/max';
+import { useIntl } from 'react-intl';
 import type { ModalFuncProps } from 'antd';
 import { Button, Modal } from 'antd';
 

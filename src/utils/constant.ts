@@ -19,7 +19,7 @@ export const DEFAULT_GROUP_KEY_CECOLLAS = 'CEROOT';
 export const DEFAULT_GROUP_KEY_LUA_TPL = 'ULTROOT';
 
 // 其他
-export const isDev = process.env.NODE_ENV === 'development';
+export const isDev = import.meta.env.DEV;
 
 export const defaultPagination = {
   defaultCurrent: 1,

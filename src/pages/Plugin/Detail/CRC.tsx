@@ -1,6 +1,6 @@
 import type { ProFormProps } from '@ant-design/pro-components';
 import { ProForm, ProFormSelect, ProFormText } from '@ant-design/pro-components';
-import { useIntl } from '@umijs/max';
+import { useIntl } from 'react-intl';
 import type { Rule } from 'antd/es/form';
 
 type ModbusCRCProps = ProFormProps;

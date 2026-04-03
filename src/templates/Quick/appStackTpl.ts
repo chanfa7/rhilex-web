@@ -1,6 +1,6 @@
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 
-const {formatMessage} = getIntl(getLocale());
+const {formatMessage} = getIntl();
 
 export const getAppStackAction = (ip?: string) => `function Main(arg)
 while true do

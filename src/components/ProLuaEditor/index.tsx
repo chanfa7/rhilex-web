@@ -10,7 +10,8 @@ import { lintKeymap } from '@codemirror/lint';
 import { langs } from '@uiw/codemirror-extensions-langs';
 import { darculaInit } from '@uiw/codemirror-theme-darcula';
 import CodeMirror, { basicSetup, keymap, ReactCodeMirrorProps } from '@uiw/react-codemirror';
-import { useIntl, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 import { Button, Drawer, Space } from 'antd';
 import { useEffect, useState } from 'react';
 import CopyButton from '../CopyButton';
@@ -74,42 +75,42 @@ const ProLuaEditor = ({
   const [newValue, setValue] = useState<string>();
 
   // 获取设备资源
-  const { data: deviceVariables } = useRequest(() => getDevicesList({ current: 1, size: 999 }), {
-    formatResult: ({ data }: any) =>
-      data?.records?.map((item: any) => ({
-        label: `${item?.name} - ${item.uuid}`,
-        type: 'variable',
-        detail: formatMessage({ id: 'component.tpl.device' }),
-        apply: item.uuid,
-      })),
+  const { data: deviceVariables } = useRequest(async () => {
+    const data = await getDevicesList({ current: 1, size: 999 });
+    return data?.records?.map((item: any) => ({
+      label: `${item?.name} - ${item.uuid}`,
+      type: 'variable',
+      detail: formatMessage({ id: 'component.tpl.device' }),
+      apply: item.uuid,
+    }));
   });
 
   // 获取南向资源
-  const { data: inendVariables } = useRequest(() => getInendsList(), {
-    formatResult: ({ data }: any) =>
-      data?.map((item: InendItem) => ({
-        label: `${item?.name} - ${item.uuid}`,
-        type: 'variable',
-        detail: formatMessage({ id: 'component.tpl.inend' }),
-        apply: item.uuid,
-      })),
+  const { data: inendVariables } = useRequest(async () => {
+    const data = (await getInendsList()) as any;
+    return data?.map((item: InendItem) => ({
+      label: `${item?.name} - ${item.uuid}`,
+      type: 'variable',
+      detail: formatMessage({ id: 'component.tpl.inend' }),
+      apply: item.uuid,
+    }));
   });
 
   // 获取北向资源
-  const { data: outendVariables } = useRequest(() => getOutendsList(), {
-    formatResult: (res) =>
-      (res as any)?.data?.map((item: OutendItem) => ({
-        label: `${item?.name} - ${item.uuid}`,
-        type: 'variable',
-        detail: formatMessage({ id: 'component.tpl.outend' }),
-        apply: item.uuid,
-      })),
+  const { data: outendVariables } = useRequest(async () => {
+    const data = await getOutendsList();
+    return (data as any)?.map((item: OutendItem) => ({
+      label: `${item?.name} - ${item.uuid}`,
+      type: 'variable',
+      detail: formatMessage({ id: 'component.tpl.outend' }),
+      apply: item.uuid,
+    }));
   });
 
   const editorConfig = [
     autocompletion({
       override: [
-        (context) => autoCompletions(context, inendVariables, outendVariables, deviceVariables),
+        (context) => autoCompletions(context, inendVariables as any, outendVariables as any, deviceVariables as any),
       ],
       addToOptions: [
         {

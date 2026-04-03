@@ -12,7 +12,9 @@ import {
 } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-components';
 import { EditableProTable, ProDescriptions, ProTable } from '@ant-design/pro-components';
-import { history, useIntl, useParams, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useRequest } from 'ahooks';
 import { Button, Dropdown, Popconfirm, Space, Tooltip, Upload } from 'antd';
 import { useEffect, useState } from 'react';
 
@@ -59,6 +61,7 @@ const DataSheet = ({
 }: DataSheetProps) => {
   const { deviceId } = useParams();
   const { formatMessage } = useIntl();
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState<string>(formatMessage({ id: 'device.title.sheet' }));
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -437,7 +440,7 @@ const DataSheet = ({
 
   return !isDetail ? (
     <>
-      <PageContainer title={title} onBack={() => history.push(DEVICE_LIST)}>
+      <PageContainer title={title} onBack={() => navigate(DEVICE_LIST)}>
         <EditableProTable<Partial<DataSheetItem>>
           controlled
           columns={baseColumns}

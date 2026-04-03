@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** DHCP配置查看 GET /api/v1/softRouter/dhcp */
 export async function getSoftRouterDhcp(options?: { [key: string]: any }) {

@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 新建设备 POST /api/v1/devices/create */
 export async function postDevicesCreate(

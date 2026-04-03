@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 获取前端证书 GET /api/v1/os/getSecurityLicense */
 export async function getOsGetSecurityLicense(options?: { [key: string]: any }) {

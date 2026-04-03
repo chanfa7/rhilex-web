@@ -36,6 +36,8 @@ functions/*
 screenshot
 .firebase
 .eslintcache
+CLAUDE.md
+.claude
 
 build
 .husky

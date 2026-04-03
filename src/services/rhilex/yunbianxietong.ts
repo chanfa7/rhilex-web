@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 云边协同异常信息 GET /api/v1/cecollas/cecollaErrMsg */
 export async function getCecollasCecollaErrMsg(

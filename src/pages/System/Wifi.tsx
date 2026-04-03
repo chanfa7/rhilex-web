@@ -7,7 +7,9 @@ import {
 import { WifiOutlined } from '@ant-design/icons';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProCard, ProForm, ProFormSelect, ProFormText } from '@ant-design/pro-components';
-import { useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useModel } from '@/hooks/useModel';
+import { useRequest } from 'ahooks';
 import { useSize } from 'ahooks';
 import { AutoComplete, Button, Empty, Progress, Space } from 'antd';
 import { useEffect, useRef } from 'react';
@@ -42,10 +44,12 @@ const WIFIConfig = () => {
     loading,
     run,
   } = useRequest(
-    (params: API.getSettingsWifiScanSignalParams) => getSettingsWifiScanSignal(params),
+    async (params: API.getSettingsWifiScanSignalParams) => {
+      const data = await getSettingsWifiScanSignal(params);
+      return data?.filter((item) => item && item[0] && item[1]);
+    },
     {
       manual: true,
-      formatResult: (res) => res?.data?.filter((item) => item && item[0] && item[1]),
     },
   );
 

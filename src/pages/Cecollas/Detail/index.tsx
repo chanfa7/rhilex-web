@@ -8,8 +8,11 @@ import { CECOLLAS_LIST } from '@/utils/constant';
 import { omit } from '@/utils/redash';
 import { BlockOutlined } from '@ant-design/icons';
 import { ProCard } from '@ant-design/pro-components';
-import { history, useIntl, useParams, useRequest } from '@umijs/max';
-import { Button, message, Space, Tooltip } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
+import { Button, Space, Tooltip } from 'antd';
+import { message } from '@/components/PopupHack';
 import { useEffect, useState } from 'react';
 import { baseColumns, typeColumns } from '../columns';
 import { CecollasType, Schema } from '../enum';
@@ -17,6 +20,7 @@ import Action from './Action';
 import Property from './Property';
 
 const Detail = () => {
+  const navigate = useNavigate();
   const { formatMessage, locale } = useIntl();
   const { uuid } = useParams();
   const [activeSchema, setModel] = useState<Schema>(Schema.GATEWAY);
@@ -57,7 +61,7 @@ const Detail = () => {
 
   return (
     <PageContainer
-      onBack={() => history.push(CECOLLAS_LIST)}
+      onBack={() => navigate(CECOLLAS_LIST)}
       title={
         <Space>
           <span>{formatMessage({ id: 'cecollas.title.detail' }, { name: detail?.name })}</span>

@@ -1,4 +1,4 @@
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 
 /**
  * 南向资源类型
@@ -16,7 +16,7 @@ export enum InendType {
   CUSTOM_PROTOCOL_SERVER = 'CUSTOM_PROTOCOL_SERVER',
 }
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 export const inendTypeOption = {
   [InendType.COAP_SERVER]: formatMessage({ id: 'inend.type.serve' }, { type: 'CoAP Server' }),

@@ -6,9 +6,11 @@ import { getOsUarts } from '@/services/rhilex/xitongshuju';
 import { omit } from '@/utils/redash';
 import type { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormDigit, ProFormSelect } from '@ant-design/pro-components';
-import { useIntl, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useRequest } from 'ahooks';
 import type { ModalFuncProps } from 'antd';
-import { Button, Flex, message, Modal } from 'antd';
+import { Button, Flex, Modal } from 'antd';
+import { message } from '@/components/PopupHack';
 import { useRef, useState } from 'react';
 import type { DetailProps } from '.';
 import { defaultConfig } from '..';
@@ -207,7 +209,7 @@ const Scan = ({ detailConfig, setDetailConfig }: ScanProps) => {
               { text: formatMessage({ id: 'form.title.uart' }) },
             )}
             request={async () => {
-              const { data } = await getOsUarts();
+              const data = await getOsUarts();
               return data.map((item) => ({
                 label: item,
                 value: item,

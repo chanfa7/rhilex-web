@@ -1,11 +1,11 @@
 /**
  * dataTo 函数相关代码模板&示例
  */
-import { getIntl, getLocale } from '@umijs/max';
-import type { TplItem } from '@/components/RuleExample/typings';
+import { getIntl, getLocale } from '@/locales';
+import type { TplItem } from '@/components/ProLuaEditor/RuleList/typings';
 import { OutendType, dataToType } from '@/pages/Outend/enum';
 
-const {formatMessage} = getIntl(getLocale());
+const {formatMessage} = getIntl();
 
 // Modbus 数据解析并推向北向资源快捷模板
 export const getDataToQuickAction = (type?: OutendType, uuid?: string, enableBatchRequest?: boolean) => {

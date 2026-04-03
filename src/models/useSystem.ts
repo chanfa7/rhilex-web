@@ -1,6 +1,6 @@
 import { getSettingsCtrlTree } from '@/services/rhilex/wangluopeizhi';
 import { getOsSystem } from '@/services/rhilex/xitongshuju';
-import { useRequest } from '@umijs/max';
+import { useRequest } from 'ahooks';
 import { useEffect, useMemo, useState } from 'react';
 
 const useSystem = () => {

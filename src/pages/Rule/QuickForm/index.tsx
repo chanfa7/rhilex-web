@@ -13,8 +13,11 @@ import {
   ProFormSelect,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useIntl, useParams, useRequest } from '@umijs/max';
-import { Empty, message, Space } from 'antd';
+import { useIntl } from 'react-intl';
+import { useParams } from 'react-router-dom';
+import { useRequest } from 'ahooks';
+import { Empty, Space } from 'antd';
+import { message } from '@/components/PopupHack';
 import type { Rule } from 'antd/es/form';
 import { useEffect, useRef } from 'react';
 import { DefaultFailed, DefaultSuccess } from '../initialValues';
@@ -49,7 +52,8 @@ const QuickForm = ({ reload, ...props }: QuickFormProps) => {
       initialValues={{ name: `RULE_${generateRandomId()}`, targetType: OutendType.MQTT }}
       width="30%"
       modalProps={{ destroyOnClose: true, maskClosable: false }}
-      onFinish={async ({ targetId, targetType, ...values }) => {
+      onFinish={async (formData: Record<string, any>) => {
+        const { targetId, targetType, ...values } = formData;
         try {
           const batchRequest = deviceDetail?.config?.commonConfig?.batchRequest;
           const actions = getDataToQuickAction(targetType, targetId, batchRequest);

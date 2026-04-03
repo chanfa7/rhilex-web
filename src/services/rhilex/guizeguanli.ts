@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 新建规则 新建规则 POST /api/v1/rules/create */
 export async function postRulesCreate(

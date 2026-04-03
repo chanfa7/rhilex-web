@@ -1,9 +1,9 @@
 import ProSegmented from '@/components/ProSegmented';
 import ProTag, { StatusType } from '@/components/ProTag';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import type { DeviceItem } from '..';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 export const GENERIC_NEMA_GNS_PROTOCOL = (uartColumns: Record<string, any>[]) => [
   {

@@ -2,7 +2,7 @@ import ProTag, { StatusType } from '@/components/ProTag';
 import UnitValue from '@/components/UnitValue';
 import { getDevicesGroup } from '@/services/rhilex/shebeiguanli';
 import { getOsUarts } from '@/services/rhilex/xitongshuju';
-import { getIntl, getLocale } from '@umijs/max';
+import { getIntl, getLocale } from '@/locales';
 import type { DeviceItem } from '..';
 import {
   baudRateEnum,
@@ -25,7 +25,7 @@ import { GENERIC_USER_PROTOCOL } from './genericUserProtocol';
 import { NATIONAL_STANDARD } from './nationalStandard';
 import { SIEMENS_PLC } from './siemensPLC';
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 export const uartColumns = [
   {
@@ -83,7 +83,7 @@ export const uartColumns = [
         required: true,
         valueType: 'select',
         request: async () => {
-          const { data } = await getOsUarts();
+          const data = await getOsUarts();
 
           return data.map((item) => ({
             label: item,
@@ -189,7 +189,7 @@ export const baseColumns = (isFreeTrial?: boolean) => [
     required: true,
     hideInTable: true,
     request: async () => {
-      const { data } = await getDevicesGroup();
+      const data = await getDevicesGroup();
 
       return data?.map((item) => ({
         label: item?.name,

@@ -1,6 +1,7 @@
 import { ExclamationCircleFilled } from '@ant-design/icons';
-import { history, useIntl, useModel } from '@umijs/max';
+import { useIntl } from 'react-intl';
 import { useCountDown } from 'ahooks';
+import { useSystemStore } from '@/store';
 import type { ModalProps } from 'antd';
 import { Button, Modal, Space } from 'antd';
 import { useState } from 'react';
@@ -22,7 +23,7 @@ const ProConfirmModal = ({
 }: ProConfirmModalProps) => {
   const [targetDate, setTargetDate] = useState<number>();
   const { formatMessage } = useIntl();
-  const { cancel } = useModel('useSystem');
+  const systemCancel = useSystemStore((s) => s.systemCancel);
 
   const okButtonText = okText || formatMessage({ id: 'button.comfirm' });
 
@@ -30,9 +31,9 @@ const ProConfirmModal = ({
     targetDate,
     onEnd: () => {
       setTargetDate(undefined);
-      onCancel();
+      onCancel?.(null as any);
       localStorage.clear();
-      history.push('/login');
+      window.location.href = '/login';
     },
   });
 
@@ -58,7 +59,7 @@ const ProConfirmModal = ({
             type="primary"
             onClick={async () => {
               setTargetDate(Date.now() + 10000);
-              cancel();
+              systemCancel();
               handleOnOk!();
             }}
           >

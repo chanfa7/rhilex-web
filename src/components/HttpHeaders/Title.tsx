@@ -1,5 +1,5 @@
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { useIntl } from '@umijs/max';
+import { useIntl } from 'react-intl';
 import { Space } from 'antd';
 
 const HeadersTitle = () => {

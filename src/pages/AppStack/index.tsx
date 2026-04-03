@@ -11,7 +11,10 @@ import { DetailModalType } from '@/utils/enum';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { history, useIntl, useModel, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { useRequest } from 'ahooks';
+import { useCommonStore } from '@/store';
 import { Button, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 import { baseColumns } from './columns';
@@ -35,9 +38,10 @@ type DetailLogModalConfig = {
 };
 
 const AppStack = () => {
+  const navigate = useNavigate();
   const actionRef = useRef<ActionType>();
   const { formatMessage } = useIntl();
-  const { isFreeTrial, total, changeTotal } = useModel('useCommon');
+  const { isFreeTrial, total, changeTotal } = useCommonStore();
   const [detailConfig, setConfig] = useState<DetailLogModalConfig>({
     uuid: '',
     open: false,
@@ -112,7 +116,7 @@ const AppStack = () => {
             ? formatMessage({ id: 'button.stop' })
             : formatMessage({ id: 'button.start' })}
         </a>,
-        <a key="edit" onClick={() => history.push(`/app/edit/${uuid}`)}>
+        <a key="edit" onClick={() => navigate(`/app/edit/${uuid}`)}>
           {formatMessage({ id: 'button.edit' })}
         </a>,
         <Popconfirm
@@ -139,7 +143,7 @@ const AppStack = () => {
           search={false}
           pagination={false}
           request={async () => {
-            const { data } = await getAppList();
+            const data = await getAppList();
 
             return Promise.resolve({
               data,
@@ -153,7 +157,7 @@ const AppStack = () => {
               type="primary"
               icon={<PlusOutlined />}
               disabled={isFreeTrial && total >= MAX_TOTAL}
-              onClick={() => history.push('/app/new')}
+              onClick={() => navigate('/app/new')}
             >
               {formatMessage({ id: 'button.new' })}
             </Button>,

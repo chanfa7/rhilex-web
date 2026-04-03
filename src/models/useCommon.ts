@@ -1,5 +1,5 @@
 import { VersionType } from '@/utils/enum';
-import { useModel } from '@umijs/max';
+import { useAppStore } from '@/store';
 import { useEffect, useState } from 'react';
 
 export type DetailConfig = {
@@ -17,8 +17,7 @@ const useCommon = () => {
   const [isFreeTrial, setFreeTrial] = useState<boolean>(true);
   const [total, setTotal] = useState<number>(0);
 
-  const { initialState } = useModel('@@initialState');
-  const { type } = initialState || {};
+  const type = useAppStore((s) => s.type);
 
   const changeConfig = (value: DetailConfig) => setDetailConfig(value);
 

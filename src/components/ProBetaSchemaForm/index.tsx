@@ -3,7 +3,8 @@ import { omit } from '@/utils/redash';
 import { validateFormItem } from '@/utils/utils';
 import type { ProFormColumnsType, ProFormInstance } from '@ant-design/pro-components';
 import { BetaSchemaForm, FooterToolbar, ProCard } from '@ant-design/pro-components';
-import { FormattedMessage, getIntl, getLocale, useIntl } from '@umijs/max';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { getIntl, getLocale } from '@/locales';
 import { Button, Divider, Popconfirm } from 'antd';
 import type { Rule } from 'antd/es/form';
 
@@ -26,7 +27,7 @@ type ProBetaSchemaFormProps<T = Record<string, any>, Values = any> = {
   onValuesChange?: (changedValues: any, values: Values) => void;
 };
 
-const { formatMessage } = getIntl(getLocale());
+const { formatMessage } = getIntl();
 
 // 辅助函数：根据不同条件生成规则
 const getRules = (col: any) => {

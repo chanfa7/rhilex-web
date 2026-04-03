@@ -10,7 +10,9 @@ import {
 import { OUTEND_LIST } from '@/utils/constant';
 import { convertConfig, filterUndefined, formatHeaders, generateRandomId } from '@/utils/utils';
 import type { ProFormColumnsType, ProFormInstance } from '@ant-design/pro-components';
-import { history, useIntl, useParams, useRequest } from '@umijs/max';
+import { useIntl } from 'react-intl';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRequest } from 'ahooks';
 import { useEffect, useRef, useState } from 'react';
 import { columns } from '../Columns';
 import { OutendType } from '../enum';
@@ -30,6 +32,7 @@ const formatCommonConfig = ({ headers, ...formatConfig }: Record<string, any>) =
 };
 
 const UpdateForm = () => {
+  const navigate = useNavigate();
   const formRef = useRef<ProFormInstance>();
   const { uuid } = useParams();
   const { formatMessage } = useIntl();
@@ -65,11 +68,11 @@ const UpdateForm = () => {
       }
 
       setLoading(false);
-      history.push(OUTEND_LIST);
+      navigate(OUTEND_LIST);
       return true;
     } catch (error) {
       setLoading(false);
-      history.push(OUTEND_LIST);
+      navigate(OUTEND_LIST);
       return false;
     }
   };

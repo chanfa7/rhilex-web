@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from '@/utils/request';
 
 /** 创建定时任务 POST /api/v1/crontask/create */
 export async function postCrontaskCreate(body: {}, options?: { [key: string]: any }) {
